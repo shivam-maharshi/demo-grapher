@@ -1,6 +1,7 @@
 from src import app
+from flask.templating import render_template
 
 @app.route('/')
 @app.route('/index')
 def index():
-    return "hello from the other side!"
+    return render_template('index.html', message='Home Page for DemoGrapher')
