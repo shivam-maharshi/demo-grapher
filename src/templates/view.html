@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading panel-title" style="text-align: center">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>DemoGrapher</b></a>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse">
+        <div class="panel-body">DemoGrapher helps in efficiently visualizing students data segregated by demographics. The information can be
+        refined by numerous powerful filters based on criteria like Student Gender, Academic Level, College, Department, Major, etc.</div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          <table class="table">
+        	<tr>
+        	  <td>
+        	    Map goes here.
+        	  </td>
+        	</tr>
+			<tr>
+			  <td>
+			    Capture & Compare goes here.
+			  </td>
+        	</tr>
+          </table>
+        </td>
+        <td class="col-sm-3">
+		  <div class="form-group">
+		  	<label>Departmental Information</label>
+		  	<br>
+		  	<label>Gender</label>
+			<img src="/assets/images/female.png"></img>		  	
+            <label>Race</label>
+			<br>
+            <label for="sel1" title="Pick Academic Level">Academic Level</label>
+            <select class="form-control" id="sel1">
+              <option>All Students</option>
+              <option>Graduates</option>
+              <option>Masters</option>
+              <option>PHDs</option>
+              <option>Undergraduate</option>
+              <option>Entering Freshman</option>
+              <option>Continuing Students</option>
+              <option>DVM</option>
+            </select>
+		  </div>
+		</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+{% endblock %}
