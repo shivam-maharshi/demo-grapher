@@ -5,10 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.1.3"></script>
+	<script src="/static/js/filters.js"></script>
   </head>
   
   <body>
+    <div class="container-fluid">
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading panel-title" style="text-align: center">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>DemoGrapher</b></a>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse">
+            <div class="panel-body">DemoGrapher helps in efficiently visualizing students data segregated by demographics. The information can be
+            refined by numerous powerful filters based on criteria like Student Gender, Academic Level, College, Department, Major, etc.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     {% block content %}{% endblock %}
   </body>
 

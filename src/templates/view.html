@@ -2,123 +2,56 @@
 
 {% block content %}
 
-<script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.1.3"></script>
-<script src="/static/js/filters.js"></script>
-<style src="/static/css/filters.css"></style>
-
 <div class="container-fluid">
-  <div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-      <div class="panel-heading panel-title" style="text-align: center">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b>DemoGrapher</b></a>
-      </div>
-      <div id="collapse1" class="panel-collapse collapse">
-        <div class="panel-body">DemoGrapher helps in efficiently visualizing students data segregated by demographics. The information can be
-        refined by numerous powerful filters based on criteria like Student Gender, Academic Level, College, Department, Major, etc.</div>
-      </div>
-    </div>
+  <div class="row">
+    <div class="col-md-9">Map goes here.</div>
+    <div id="filter" class="col-md-3">
+      <div id="di">
+		<label>Departmental Information</label><br>
+		<select class="form-control" id="sel1">
+    	  <option>1</option>
+    	  <option>2</option>
+    	  <option>3</option>
+    	  <option>4</option>
+  		</select>
+  	  </div>
+	  <hr>
+	  <div id="gn">
+		<label>Gender</label><br>
+		<img src="/static/img/female.png"></img>
+		<img src="/static/img/male.png"></img>
+		<img src="/static/img/na.png"></img>
+	  </div>
+      <hr>
+      <div id="rc">
+        <label>Race</label><br>
+        <div id="chart">
+          <script> displayChart(); </script>
+		</div>
+	  </div>
+	  <hr>
+	  <div id="al">
+	    <label for="sel1" title="Pick Academic Level">Academic Level</label><br>
+        <div class="checkbox">
+  		  <label><input type="checkbox" value="">All Students</label><br>
+  		  <label style="margin-left:20;"><input type="checkbox" value="">Graduates</label><br>
+  		  <label style="margin-left:40;"><input type="checkbox" value="">Masters</label><br>
+  		  <label style="margin-left:40;"><input type="checkbox" value="">PhDs</label><br>
+  		  <label style="margin-left:20;"><input type="checkbox" value="">Undergraduate</label><br>
+  		  <label style="margin-left:40;"><input type="checkbox" value="">Entering Freshman</label><br>
+  		  <label style="margin-left:40;"><input type="checkbox" value="">Entering Transfer</label><br>
+  		  <label style="margin-left:40;"><input type="checkbox" value="">Continuing Students</label><br>
+  		  <label style="margin-left:20;"><input type="checkbox" value="">DVM</label><br>
+  		  <label style="margin-left:40;"><input type="checkbox" value="">Entering Freshman</label><br>
+  		  <label style="margin-left:40;"><input type="checkbox" value="">Entering Transfer</label>
+		</div>
+	  </div>
+	  <button type="button" class="btn btn-info">
+        <span class="glyphicon glyphicon-search"></span> View Distribution
+      </button>
+      <p><p><p><p>
+	</div>
   </div>
-
-  <table class="table">
-    <tbody>
-      <tr>
-        <td>
-          <table class="table">
-        	<tr>
-        	  <td>
-        	    Map goes here.
-        	  </td>
-        	</tr>
-			<tr>
-			  <td>
-			    Capture & Compare goes here.
-			  </td>
-        	</tr>
-          </table>
-        </td>
-        <td class="col-sm-3">
-		  <div class="form-group">
-		  	<label>Departmental Information</label><br>
-					<div class="input-group">
-						<div class="input-group-btn">
-							<button tabindex="-1" class="btn btn-default" type="button">Select</button>
-							<button tabindex="-1" data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
-							<span class="caret"></span>
-							</button>
-							<ul role="menu" class="dropdown-menu">
-								<li><a href="#">
-								<input type="checkbox"><span class="lbl"> Every day</span>
-								</a></li>
-								<li class="divider"></li>
-								<li><a href="#">
-								<input type="checkbox">
-								<span class="lbl"> Monday</span>
-							</a></li>
-								<li><a href="#">
-								<input type="checkbox"><span class="lbl">
-								Tuesday</span>
-								</a></li>
-								<li><a href="#">
-								<input type="checkbox"><span class="lbl">
-								Wednesday</span>
-								</a></li>
-								<li><a href="#">
-								<input type="checkbox"><span class="lbl">
-								Thursday</span>
-								</a></li>
-								<li><a href="#">
-								<input type="checkbox"><span class="lbl">
-								Friday</span>
-								</a></li>
-								<li><a href="#">
-								<input type="checkbox"><span class="lbl">
-								Saturday</span>
-								</a></li>
-								<li><a href="#">
-								<input type="checkbox"><span class="lbl">
-								Sunday</span>
-							</a></li>
-								<li class="divider"></li>
-								<li><a href="#">
-								<input type="checkbox"><span class="lbl"> Last Weekday in month</span></a></li>
-							</ul>
-						</div>
-						<input type="text" class="form-control">
-					</div>
-				  	<p>
-		  	<label>Gender</label><br>
-			<img src="/static/img/female.png"></img>
-			<img src="/static/img/male.png"></img>
-			<img src="/static/img/na.png"></img>
-			</p>
-            <p>
-            <label>Race</label><br>
-            <div id="chart">
-              <script> displayChart(); </script>
-			</div>
-			</p><br>
-			<p>
-			<label for="sel1" title="Pick Academic Level">Academic Level</label><br>
-            <div class="checkbox">
-  			  <label><input type="checkbox" value="">All Students</label><br>
-  			  <label style="margin-left:20;"><input type="checkbox" value="">Graduates</label><br>
-  			  <label style="margin-left:40;"><input type="checkbox" value="">Masters</label><br>
-  			  <label style="margin-left:40;"><input type="checkbox" value="">PhDs</label><br>
-  			  <label style="margin-left:20;"><input type="checkbox" value="">Undergraduate</label><br>
-  			  <label style="margin-left:40;"><input type="checkbox" value="">Entering Freshman</label><br>
-  			  <label style="margin-left:40;"><input type="checkbox" value="">Entering Transfer</label><br>
-  			  <label style="margin-left:40;"><input type="checkbox" value="">Continuing Students</label><br>
-  			  <label style="margin-left:20;"><input type="checkbox" value="">DVM</label><br>
-  			  <label style="margin-left:40;"><input type="checkbox" value="">Entering Freshman</label><br>
-  			  <label style="margin-left:40;"><input type="checkbox" value="">Entering Transfer</label>
-			</div>
-            </p>
-		  </div>
-		</td>
-      </tr>
-    </tbody>
-  </table>
-
 </div>
 
 {% endblock %}
