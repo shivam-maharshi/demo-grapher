@@ -6,32 +6,38 @@
   <div class="row">
     <div class="col-md-9">Map goes here.</div>
     <div id="filter" class="col-md-3">
-      <div id="di">
-		<label>Departmental Information</label><br>
-		<select class="form-control" id="sel1">
-    	  <option>1</option>
-    	  <option>2</option>
-    	  <option>3</option>
-    	  <option>4</option>
-  		</select>
-  	  </div>
-	  <hr>
+      <label for="di" title="Select Departmental Information" style="padding-bottom:5px;">Departmental Information</label><br>
+      <div id="di" class="col-lg-12">
+        <button id="btn_di" type="button" class="btn btn-block btn-primary dropdown-toggle" data-toggle="dropdown">
+          All Departments<span class="caret"></span>
+        </button>
+		<ul class="dropdown-menu">
+  		  <li><a href="#"><input id="input1" type="checkbox"/>&nbsp;&nbsp;Option 1</a></li>
+  		  <li style="margin-left:20;"><a href="#"><input type="checkbox"/>&nbsp;&nbsp;Option 1</a></li>
+  		  <li style="margin-left:40;"><a href="#"><input type="checkbox"/>&nbsp;&nbsp;Option 1</a></li>
+  		  <li class="divider"></li>
+  		  <li><a href="#"><input id="input2" type="checkbox"/>&nbsp;&nbsp;Option 1</a></li>
+  		  <li style="margin-left:20;"><a href="#"><input type="checkbox"/>&nbsp;&nbsp;Option 1</a></li>
+  		  <li style="margin-left:40;"><a href="#"><input type="checkbox"/>&nbsp;&nbsp;Option 1</a></li>
+		</ul>
+      </div>
+	  <br><br><hr>
 	  <div id="gn">
-		<label>Gender</label><br>
+		<label for="gn" title="Select Gender">Gender</label><br>
 		<img src="/static/img/female.png"></img>
 		<img src="/static/img/male.png"></img>
 		<img src="/static/img/na.png"></img>
 	  </div>
       <hr>
       <div id="rc">
-        <label>Race</label><br>
+        <label for="rc" title="Select Race">Race</label><br>
         <div id="chart">
           <script> displayChart(); </script>
 		</div>
 	  </div>
 	  <hr>
 	  <div id="al">
-	    <label for="sel1" title="Pick Academic Level">Academic Level</label><br>
+	    <label for="al" title="Select Academic Level">Academic Level</label><br>
         <div class="checkbox">
   		  <label><input type="checkbox" value="">All Students</label><br>
   		  <label style="margin-left:20;"><input type="checkbox" value="">Graduates</label><br>
@@ -47,7 +53,7 @@
 		</div>
 	  </div>
 	  <button type="button" class="btn btn-info">
-        <span class="glyphicon glyphicon-search"></span> View Distribution
+        <span class="glyphicon glyphicon-search"></span> View Students Distribution
       </button>
       <p><p><p><p>
 	</div>
