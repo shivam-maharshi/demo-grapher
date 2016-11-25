@@ -3,3 +3,4 @@ DB_PORT=5432
 DB_NAME='demographer'
 DB_USER='postgres'
 DB_PASSWORD='root'
+DB_TABLE_NAME='Student_residency'
