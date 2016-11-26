@@ -1,8 +1,8 @@
 var request = {
-  "gender" : [1, 2, 3],
+  "gender" : [1,2,3],
   "year" : 2007,
-  "race" : [0],
-  "acad" : [0]
+  "race" : [1,2,3,4,5,6,7,8,9],
+  "acad" : [1,2,3,4,5,6,7,8,9,10]
 }
     
 function sendRequest() {
@@ -20,9 +20,25 @@ function sendRequest() {
 	error: function (error) {
 	  $("#demo").append(error);}
   });
+}
+
+function handleGender(v) {
+  index = jQuery.inArray(v, request.gender);
+  if (index > -1) {
+    request.gender.splice(index, 1);
+  } else {
+	request.gender.push(v);
+  }
+  $(event.srcElement).toggleClass('active_img')
+}
+
+function handleRace() {
   
 }
 
+function handleAcad() {
+  
+}
 
 function displayChart() {
 
@@ -68,6 +84,4 @@ function displayChart() {
         return "translate(" + arc.centroid(d) + ")";}) 				// This gives us a pair of coordinates like [50, 50]
       .attr("text-anchor", "middle")                          		// Center the text on it's origin
       .text(function(d, i) { return data[i].label; })
-      .style("font-size", "8px");};								// Get the label from our original data array
-
-  
+      .style("font-size", "8px");};								    // Get the label from our original data array

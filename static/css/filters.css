@@ -1,3 +1,12 @@
 .cust-dropdown {
-        width: 200px;
-    }
+    width: 200px;
+}
+
+.windows_blue {
+	color: #357EC7;
+}
+
+.active_img {
+	border: solid 5px #357EC7;
+	border-radius: 15px 15px 15px 15px;
+}

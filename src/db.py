@@ -1,9 +1,10 @@
 import sqlalchemy
+from sqlalchemy.sql import text
 
 from src import config
 
 '''
-DBClient for Postgres DB.
+Database client for Postgres SQL Server.
 
 @author: shivam.maharshi
 '''
@@ -22,18 +23,16 @@ class PGClient(object):
             print (row)
         return rs
     
-    def get1(self, table):
-        table = self.meta.tables[table]
-        stmt = table.select((table.c.Gender_code == 3))
-        rs = stmt.execute()
+    def execute(self, sql):
+        records = []
+        rs = self.con.execute(sql)
         for row in rs:
-            print (row)
-        return rs
+            records.append(str(row))
+        return records
+        
 
     def print_all_columns(self, table):
         for col in self.meta.tables[table].c:
             print(col)
 
-# dbc = PGClient(config.DB_USER, config.DB_PASSWORD, config.DB_NAME, config.DB_HOST, config.DB_PORT)
-# dbc.get1(config.DB_TABLE_NAME)
-
+#dbc = PGClient(config.DB_USER, config.DB_PASSWORD, config.DB_NAME, config.DB_HOST, config.DB_PORT)
