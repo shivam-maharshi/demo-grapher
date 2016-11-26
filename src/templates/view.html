@@ -4,7 +4,9 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-9">Map goes here.</div>
+    <div class="col-md-9">Map goes here.
+      <div id="demo"></div>
+    </div>
     <div id="filter" class="col-md-3">
       <label for="di" title="Select Departmental Information" style="padding-bottom:5px;">Departmental Information</label><br>
       <div id="di" class="col-lg-12">
@@ -24,9 +26,9 @@
 	  <br><br><hr>
 	  <div id="gn">
 		<label for="gn" title="Select Gender">Gender</label><br>
-		<img src="/static/img/female.png"></img>
-		<img src="/static/img/male.png"></img>
-		<img src="/static/img/na.png"></img>
+		<img id="1" src="/static/img/female.png"></img>
+		<img id="2" src="/static/img/male.png"></img>
+		<img id="3" src="/static/img/na.png"></img>
 	  </div>
       <hr>
       <div id="rc">
@@ -39,20 +41,20 @@
 	  <div id="al">
 	    <label for="al" title="Select Academic Level">Academic Level</label><br>
         <div class="checkbox">
-  		  <label><input type="checkbox" value="">All Students</label><br>
-  		  <label style="margin-left:20;"><input type="checkbox" value="">Graduates</label><br>
-  		  <label style="margin-left:40;"><input type="checkbox" value="">Masters</label><br>
-  		  <label style="margin-left:40;"><input type="checkbox" value="">PhDs</label><br>
-  		  <label style="margin-left:20;"><input type="checkbox" value="">Undergraduate</label><br>
-  		  <label style="margin-left:40;"><input type="checkbox" value="">Entering Freshman</label><br>
-  		  <label style="margin-left:40;"><input type="checkbox" value="">Entering Transfer</label><br>
-  		  <label style="margin-left:40;"><input type="checkbox" value="">Continuing Students</label><br>
-  		  <label style="margin-left:20;"><input type="checkbox" value="">DVM</label><br>
-  		  <label style="margin-left:40;"><input type="checkbox" value="">Entering Freshman</label><br>
-  		  <label style="margin-left:40;"><input type="checkbox" value="">Entering Transfer</label>
+  		  <label><input type="checkbox" id="0">All Students</label><br>
+  		    <label style="margin-left:20;"><input type="checkbox" id="1">Graduates</label><br>
+    		  <label style="margin-left:40;"><input type="checkbox" id="5">Masters</label><br>
+  		        <label style="margin-left:60;"><input type="checkbox" id="9">Entering Masters</label><br>
+  		      <label style="margin-left:40;"><input type="checkbox" id="6">PhDs</label><br>
+  		        <label style="margin-left:60;"><input type="checkbox" id="10">Entering Doctoral</label><br>
+  		    <label style="margin-left:20;"><input type="checkbox" id="2">Undergraduate</label><br>
+  		      <label style="margin-left:40;"><input type="checkbox" id="7">Entering Freshman</label><br>
+  		    <label style="margin-left:20;"><input type="checkbox" id="3">DVM</label><br>
+  		      <label style="margin-left:40;"><input type="checkbox" id="8">Entering Freshman</label><br>
+  		    <label style="margin-left:20;"><input type="checkbox" id="4">Entering Transfer</label>
 		</div>
 	  </div>
-	  <button type="button" class="btn btn-info">
+	  <button type="button" class="btn btn-info" onClick='sendRequest()'>
         <span class="glyphicon glyphicon-search"></span> View Students Distribution
       </button>
       <p><p><p><p>

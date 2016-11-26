@@ -1,5 +1,7 @@
 import sqlalchemy
 
+from src import config
+
 '''
 DBClient for Postgres DB.
 
@@ -19,7 +21,19 @@ class PGClient(object):
         for row in rs:
             print (row)
         return rs
+    
+    def get1(self, table):
+        table = self.meta.tables[table]
+        stmt = table.select((table.c.Gender_code == 3))
+        rs = stmt.execute()
+        for row in rs:
+            print (row)
+        return rs
 
     def print_all_columns(self, table):
         for col in self.meta.tables[table].c:
             print(col)
+
+# dbc = PGClient(config.DB_USER, config.DB_PASSWORD, config.DB_NAME, config.DB_HOST, config.DB_PORT)
+# dbc.get1(config.DB_TABLE_NAME)
+
