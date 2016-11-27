@@ -4,6 +4,8 @@ var request = {
   "race" : [1,2,3,4,5,6,7,8,9],
   "acad" : [1,2,3,4,5,6,7,8,9,10]
 }
+
+var acadChildren = [[1,2,3,4,5,6,7,8,9,10],[1,5,9,6,10],[2,7],[3,8],[4],[5,9],[6,10],[7],[8],[9],[10]];
     
 function sendRequest() {
   $.ajax({
@@ -41,16 +43,38 @@ function selectRace(vis, d, r, v) {
 	request.race.push(v);
 	color = "#357EC7";
   }
-  console.log(request.race);
-  // Outer boundary
-  drawSelectionArc(vis, r, d.startAngle, d.endAngle, color);
+  drawSelectionArc(vis, r, d.startAngle, d.endAngle, color);		// Outer boundary
 }
 
-function selectAcad() {
-  
+function selectAcad(e) {
+  value = acadChildren[e.value];
+  if(e.checked) {
+	insertIfAbsent(request.acad, value);
+  } else {
+	removeIfPresent(request.acad, value);
+  }
+  for (i=0; i<value.length; i++) {
+	$('#al'+value[i]).prop('checked', e.checked);
+  }
+  console.log(request.acad);
 }
 
-var arc
+function insertIfAbsent(array, value) {
+  for (i=0; i<value.length; i++) {
+    if(jQuery.inArray(value[i], array) < 0) {
+	  array.push(value[i]);
+    }
+  }
+}
+
+function removeIfPresent(array, value) {
+  for (i=0; i<value.length; i++) {
+    var index = jQuery.inArray(value[i], array);
+    if(index > -1) {
+      array.splice(index, 1);
+    }
+  }
+}
 
 function displayChart() {
 
@@ -77,7 +101,7 @@ function displayChart() {
   var pie = d3.layout.pie().value(function(d) { return d.value; }); // This will create arc data for us given a list of values. 
   																	// We must tell it out to access the value of each element in our data array
   
-  arc = d3.svg.arc().outerRadius(r); 							    // This will create <path> elements for us using arc data
+  var arc = d3.svg.arc().outerRadius(r); 							    // This will create <path> elements for us using arc data
   
   var arcs = vis.selectAll("g.slice")     							// This selects all <g> elements with class slice (there aren't any yet)
                 .data(pie)                          				// Associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties) 

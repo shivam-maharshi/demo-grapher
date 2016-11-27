@@ -1,4 +1,7 @@
-.PHONY: build
+.PHONY: install
 
-build: ##Builds dependency for DemoGrapher.
-	sh script/build.sh
+install: ## Installs the libraries for development.
+	sh script/dev_dependency.sh
+	
+run: ## Runs the web application.
+    python run.py

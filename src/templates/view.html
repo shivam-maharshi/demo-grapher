@@ -41,17 +41,17 @@
 	  <div id="al">
 	    <label for="al" title="Select Academic Level">Academic Level</label><br>
         <div class="checkbox">
-  		  <label><input type="checkbox" value="0">All Students</label><br>
-  		    <label style="margin-left:20;"><input type="checkbox" value="1" onClick='handleGender()'>Graduates</label><br>
-    		  <label style="margin-left:40;"><input type="checkbox" value="5" onClick='handleGender()'>Masters</label><br>
-  		        <label style="margin-left:60;"><input type="checkbox" value="9" onClick='handleGender()'>Entering Masters</label><br>
-  		      <label style="margin-left:40;"><input type="checkbox" value="6" onClick='handleGender()'>PhDs</label><br>
-  		        <label style="margin-left:60;"><input type="checkbox" value="10" onClick='handleGender()'>Entering Doctoral</label><br>
-  		    <label style="margin-left:20;"><input type="checkbox" value="2" onClick='handleGender()'>Undergraduate</label><br>
-  		      <label style="margin-left:40;"><input type="checkbox" value="7" onClick='handleGender()'>Entering Freshman</label><br>
-  		    <label style="margin-left:20;"><input type="checkbox" value="3" onClick='handleGender()'>DVM</label><br>
-  		      <label style="margin-left:40;"><input type="checkbox" value="8" onClick='handleGender()'>Entering Freshman</label><br>
-  		    <label style="margin-left:20;"><input type="checkbox" value="4" onClick='handleGender()'>Entering Transfer</label>
+  		  <label><input id="al0" type="checkbox" value="0" onClick='selectAcad(this)'>All Students</label><br>
+  		    <label style="margin-left:20;"><input id="al1" type="checkbox" value="1" onClick='selectAcad(this)'>Graduates</label><br>
+    		  <label style="margin-left:40;"><input id="al5" type="checkbox" value="5" onClick='selectAcad(this)'>Masters</label><br>
+  		        <label style="margin-left:60;"><input id="al9" type="checkbox" value="9" onClick='selectAcad(this)'>Entering Masters</label><br>
+  		      <label style="margin-left:40;"><input id="al6" type="checkbox" value="6" onClick='selectAcad(this)'>PhDs</label><br>
+  		        <label style="margin-left:60;"><input id="al10" type="checkbox" value="10" onClick='selectAcad(this)'>Entering Doctoral</label><br>
+  		    <label style="margin-left:20;"><input id="al2" type="checkbox" value="2" onClick='selectAcad(this)'>Undergraduate</label><br>
+  		      <label style="margin-left:40;"><input id="al7" type="checkbox" value="7" onClick='selectAcad(this)'>Entering Freshman</label><br>
+  		    <label style="margin-left:20;"><input id="al3" type="checkbox" value="3" onClick='selectAcad(this)'>DVM</label><br>
+  		      <label style="margin-left:40;"><input id="al8" type="checkbox" value="8" onClick='selectAcad(this)'>Entering Freshman</label><br>
+  		    <label style="margin-left:20;"><input id="al4" type="checkbox" value="4" onClick='selectAcad(this)'>Entering Transfer</label>
 		</div>
 	  </div>
 	  <button type="button" class="btn btn-info" onClick="sendRequest();">
