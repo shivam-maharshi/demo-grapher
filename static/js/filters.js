@@ -6,7 +6,7 @@ var request = {
 }
 
 var acadChildren = [[1,2,3,4,5,6,7,8,9,10],[1,5,9,6,10],[2,7],[3,8],[4],[5,9],[6,10],[7],[8],[9],[10]];
-    
+
 function sendRequest() {
   $.ajax({
 	url: "http://127.0.0.1:5000/data",

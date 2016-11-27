@@ -6,6 +6,11 @@
 	color: #357EC7;
 }
 
+.inactive_img {
+	border: solid 5px white;
+	border-radius: 15px 15px 15px 15px;
+}
+
 .active_img {
 	border: solid 5px #357EC7;
 	border-radius: 15px 15px 15px 15px;

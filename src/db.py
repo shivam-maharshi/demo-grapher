@@ -27,7 +27,7 @@ class PGClient(object):
         records = []
         rs = self.con.execute(sql)
         for row in rs:
-            records.append(str(row))
+            records.append(row)
         return records
         
 
