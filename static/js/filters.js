@@ -3,9 +3,30 @@ var request = {
   "year" : 2007,
   "race" : [1,2,3,4,5,6,7,8,9],
   "acad" : [1,2,3,4,5,6,7,8,9,10]
+};
+
+var ac = [[1,2,3,4,5,6,7,8,9,10],[1,5,9,6,10],[2,7],[3,8],[4],[5,9],[6,10],[7],[8],[9],[10]];
+var cl;
+
+function createCollegeListDD() {
+	
 }
 
-var acadChildren = [[1,2,3,4,5,6,7,8,9,10],[1,5,9,6,10],[2,7],[3,8],[4],[5,9],[6,10],[7],[8],[9],[10]];
+(function getCollegeList() {												// Self invoking function.
+  $.ajax({
+	url: "http://127.0.0.1:5000/colleges",
+	type: "GET",
+	cache: false,
+	beforeSend: function (httpRequest) {
+      httpRequest.setRequestHeader('Accept', 'application/json');},
+	dataType: 'json',
+	success: function(response) {
+	  cl = response;
+	  console.log(cl)},
+	error: function (jqXHR, status, error) {
+	  $("#error").html("Error In fetching college list! : " + error);}
+  });
+})();
 
 function sendRequest() {
   $.ajax({
@@ -15,21 +36,35 @@ function sendRequest() {
 	beforeSend: function (httpRequest) {
 	  httpRequest.setRequestHeader('Content-Type', 'application/json');},
     dataType: 'json',
-    data :  encodeURI((JSON.stringify(request))),
+    data : encodeURI((JSON.stringify(request))),
 	processData: false,
 	success: function(response) {
-	  $("#demo").append(response);},
-	error: function (error) {
-	  $("#demo").append(error);}
+	  $("#demo").html("abc");},
+	error: function (jqXHR, status, error) {
+	  $("#error").html("Error In submitting request! : " + error);}
   });
 }
 
-function selectGender(v) {
+function selectGender(id, v) {
   index = jQuery.inArray(v, request.gender);
   if (index > -1) {
     request.gender.splice(index, 1);
+    if (id=='f_img') {
+      $("#"+id).attr('src', '/static/img/fi.png');
+    } else if (id=='m_img') {
+      $("#"+id).attr('src', '/static/img/mi.png');
+    } else {
+      $("#"+id).attr('src', '/static/img/ni.png');
+    }
   } else {
 	request.gender.push(v);
+	if (id=='f_img') {
+	  $("#"+id).attr('src', '/static/img/fa.png');
+	} else if (id=='m_img') {
+	  $("#"+id).attr('src', '/static/img/ma.png');
+	} else {
+	  $("#"+id).attr('src', '/static/img/na.png');
+	}
   }
   $(event.srcElement).toggleClass("active_img")
 }
@@ -47,7 +82,7 @@ function selectRace(vis, d, r, v) {
 }
 
 function selectAcad(e) {
-  value = acadChildren[e.value];
+  value = ac[e.value];
   if(e.checked) {
 	insertIfAbsent(request.acad, value);
   } else {
@@ -56,7 +91,6 @@ function selectAcad(e) {
   for (i=0; i<value.length; i++) {
 	$('#al'+value[i]).prop('checked', e.checked);
   }
-  console.log(request.acad);
 }
 
 function insertIfAbsent(array, value) {
@@ -107,13 +141,13 @@ function displayChart() {
                 .data(pie)                          				// Associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties) 
                 .enter()                            				// This will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
                 .append("svg:g")                					// Create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
-                .attr("class", "slice")     						// Allow us to style things in the slices (like text)
+                .attr("class", "slice cursor_hand")     			// Allow us to style things in the slices (like text)
                 .on("click", function(d, i) {
                   selectRace(vis, d, r, data[i].id);});
   
   arcs.append("svg:path")
       .attr("fill", function(d, i) { return color(i); } ) 			// Set the color for each slice to be chosen from the color function defined above
-      .attr("d", arc)                                    			// This creates the actual SVG path using the associated data (pie) with the arc drawing function
+      .attr("d", arc)                                   			// This creates the actual SVG path using the associated data (pie) with the arc drawing function
       .style("stroke", "white")
       .style("stroke-width", 1);
   

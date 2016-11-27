@@ -3,15 +3,22 @@
 }
 
 .windows_blue {
+	/*(53,126,199)*/
 	color: #357EC7;
+}
+
+.cursor_hand {
+    cursor: hand;
 }
 
 .inactive_img {
 	border: solid 5px white;
-	border-radius: 15px 15px 15px 15px;
 }
 
 .active_img {
-	border: solid 5px #357EC7;
-	border-radius: 15px 15px 15px 15px;
+	border: solid 5px;
+	border-bottom-color: #357EC7;
+	border-left-color: white;
+	border-right-color: white;
+	border-top-color: white;
 }

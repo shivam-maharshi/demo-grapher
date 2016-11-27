@@ -3,15 +3,16 @@
 {% block content %}
 
 <div class="container-fluid">
+  <div id="error" class="row"></div>
   <div class="row">
-    <div class="col-md-9">Map goes here.
-      <div id="demo"></div>
+    <div class="col-md-9">
+      Map goes here.
     </div>
     <div id="filter" class="col-md-3">
-      <label for="di" title="Select Departmental Information" style="padding-bottom:5px;">Departmental Information</label><br>
+      <label for="di" title="Select Colleges & Departments" style="padding-bottom:5px;">Colleges & Departments</label><br>
       <div id="di" class="col-lg-12">
         <button id="btn_di" type="button" class="btn btn-block btn-primary dropdown-toggle" data-toggle="dropdown">
-          All Departments<span class="caret"></span>
+          All<span class="caret"></span>
         </button>
 		<ul class="dropdown-menu">
   		  <li><a href="#"><input id="input1" type="checkbox"/>&nbsp;&nbsp;Option 1</a></li>
@@ -26,9 +27,9 @@
 	  <br><br><hr>
 	  <div id="gn">
 		<label for="gn" title="Select Gender">Gender</label><br>
-		<img id="f_img" class="inactive_img active_img" src="/static/img/female.png" onClick="selectGender(1);"></img>
-		<img id="m_img" class="inactive_img active_img" src="/static/img/male.png" onClick="selectGender(2);"></img>
-		<img id="n_img" class="inactive_img active_img" src="/static/img/na.png" onClick="selectGender(3);"></img>
+		<img id="f_img" title="Female" class="inactive_img active_img cursor_hand" src="/static/img/fa.png" onClick="selectGender(this.id, 1);"></img>
+		<img id="m_img" title="Male" class="inactive_img active_img cursor_hand" src="/static/img/ma.png" onClick="selectGender(this.id, 2);"></img>
+		<img id="n_img" title="Unknown" class="inactive_img active_img cursor_hand" src="/static/img/na.png" onClick="selectGender(this.id, 3);"></img>
 	  </div>
       <hr>
       <div id="rc">
@@ -54,12 +55,11 @@
   		    <label style="margin-left:20;"><input id="al4" type="checkbox" value="4" onClick='selectAcad(this)'>Entering Transfer</label>
 		</div>
 	  </div>
-	  <button type="button" class="btn btn-info" onClick="sendRequest();">
+	  <button type="button" class="btn btn-primary" onClick="getCollegeList();">
         <span class="glyphicon glyphicon-search"></span> View Students Distribution
       </button>
       <p><p><p><p>
 	</div>
   </div>
 </div>
-
 {% endblock %}

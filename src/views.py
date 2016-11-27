@@ -28,11 +28,15 @@ def test():
 def data():
     rb = urllib.parse.unquote(request.data.decode('utf8'))
     r = JsonRequest(rb)
-    return str(dbc.execute('SELECT * FROM "Student_residency" LIMIT 10'))
+    return '{"a" : "a"}'
 
 @app.route('/static/<path:path>')
 def render_static_assets(path):
     return send_from_directory(os.getcwd() + '/static/', path)
+
+@app.route('/favicon.ico')
+def render_favicon():
+    return send_from_directory(os.getcwd() + '/static/', 'favicon.ico')
 
 @app.route('/colleges')
 def list_all_colleges():
@@ -41,7 +45,6 @@ def list_all_colleges():
     lookup = {}
     cl = []
     for row in rows:
-        print(row[0])
         dept = Department(row[2].strip(), row[3].strip())
         if not row[0].strip() in lookup:
             col = College(row[0].strip(), row[1].strip())
