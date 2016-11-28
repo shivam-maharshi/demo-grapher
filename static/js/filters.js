@@ -16,10 +16,10 @@ function createCollegeListDD() {										// Self invoking function.
   var cont = $('#cd_dd');
   for (i=0; i<cl.length; i++) {											// Add checkboxes dynamically.
 	c = cl[i];
-	addCheckbox(cont, c.cc, c.cn);
+	addCheckbox(cont, parseInt(c.cc), c.cn);
 	$("#cc" + cl[i].cc).prop('checked', true);
 	for (j=0; j<c.dl.length; j++) {
-	  addLabel(cont, c.dl[j].dc, c.dl[j].dn);
+	  addLabel(cont, parseInt(c.dl[j].dc), c.dl[j].dn);
 	}
 	$('<li />', {"class" : "divider"}).appendTo(cont);
   }

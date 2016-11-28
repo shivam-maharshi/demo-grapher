@@ -6,7 +6,7 @@ from flask.templating import render_template
 from src import app, config
 from src.db import PGClient
 from src.wrapper import JsonRequest, JsonResponse
-from src.dto import CollegeList, College, Department
+from src.dto import College, Department
 
 dbc = PGClient(config.DB_USER, config.DB_PASSWORD, config.DB_NAME, config.DB_HOST, config.DB_PORT)
 
@@ -53,5 +53,3 @@ def list_all_colleges():
         lookup[row[0].strip()].dl.append(dept)
     
     return JsonResponse(cl).json
-
-
