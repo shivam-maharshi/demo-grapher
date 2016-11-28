@@ -1,5 +1,4 @@
 import sqlalchemy
-from sqlalchemy.sql import text
 
 from src import config
 
@@ -19,8 +18,6 @@ class PGClient(object):
         table = self.meta.tables[table]
         stmt = table.select((table.c.Gender_code == gender) & (table.c.Ethnicity_code == race) & (table.c.Year == year))
         rs = stmt.execute()
-        for row in rs:
-            print (row)
         return rs
     
     def execute(self, sql):
@@ -36,3 +33,4 @@ class PGClient(object):
             print(col)
 
 #dbc = PGClient(config.DB_USER, config.DB_PASSWORD, config.DB_NAME, config.DB_HOST, config.DB_PORT)
+#dbc.execute('SELECT DISTINCT ON("College") "College" FROM "Student_residency" WHERE "College_code"::int8=9')

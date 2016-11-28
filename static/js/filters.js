@@ -1,35 +1,38 @@
 var request = {
-  "gender" : [1,2,3],
   "year" : 2007,
+  "college" : [1,2,3,5,6,7,8,9,10],
+  "gender" : [1,2,3],
   "race" : [1,2,3,4,5,6,7,8,9],
   "acad" : [1,2,3,4,5,6,7,8,9,10]
 };
 
-var ac = [[1,2,3,4,5,6,7,8,9,10],[1,5,9,6,10],[2,7],[3,8],[4],[5,9],[6,10],[7],[8],[9],[10]];
+var acadChildren = [[1,2,3,4,5,6,7,8,9,10],[1,5,9,6,10],[2,7],[3,8],[4],[5,9],[6,10],[7],[8],[9],[10]];
+var collegeChildren = [[1,2,3,5,6,7,8,9,10],[1],[2],[3],[],[5],[6],[7],[8],[9],[10]];
+
 var cl;
 
 function createCollegeListDD() {										// Self invoking function.
   getCollegeList();
   var cont = $('#cd_dd');
-  for (i=0; i<cl.length; i++) {
+  for (i=0; i<cl.length; i++) {											// Add checkboxes dynamically.
 	c = cl[i];
 	addCheckbox(cont, c.cc, c.cn);
+	$("#cc" + cl[i].cc).prop('checked', true);
 	for (j=0; j<c.dl.length; j++) {
-		addLabel(cont, c.dl[j].dc, c.dl[j].dn);
+	  addLabel(cont, c.dl[j].dc, c.dl[j].dn);
 	}
 	$('<li />', {"class" : "divider"}).appendTo(cont);
   }
-  console.log("invoked add checkbox.");
 }
 
 function addCheckbox(cont, id, name) {
-  $('<input />', { type: 'checkbox', id: 'cc' + id, value: name, style: "margin-left: 20;" }).appendTo(cont);
-  $('<label />', { 'for': 'cc' + id, text: name }).appendTo(cont);
+  $('<input />', { type: 'checkbox', id: 'cc' + id, value: id, style: "margin-left: 10;", onClick: "selectCollege(this)"}).appendTo(cont);
+  $('<label />', { 'for': 'cc' + id, text: name, style: "margin-left: 5;" }).appendTo(cont);
   $('<br>').appendTo(cont);
 }
 
 function addLabel(cont, id, name) {
-  $('<label />', { id: 'dc' + id, text: name, style: "margin-left: 40;" }).appendTo(cont);
+  $('<label />', { id: 'dc' + id, text: name, style: "margin-left: 40; font-weight: normal;" }).appendTo(cont);
   $('<br>').appendTo(cont);
 }
 
@@ -43,14 +46,13 @@ function getCollegeList() {
 	dataType: 'json',
 	async: false,
 	success: function(response) {
-	  cl = response;
-	  console.log(cl)},
+	  cl = response;},
 	error: function (jqXHR, status, error) {
 	  $("#error").html("Error In fetching college list! : " + error);}
   });
 }
 
-function sendRequest() {
+function submitRequest() {
   $.ajax({
 	url: "http://127.0.0.1:5000/data",
 	type: "POST",
@@ -65,6 +67,21 @@ function sendRequest() {
 	error: function (jqXHR, status, error) {
 	  $("#error").html("Error In submitting request! : " + error);}
   });
+}
+
+function selectCollege(e) {
+  console.log(e);
+  console.log(e.value);
+  value = collegeChildren[parseInt(e.value)];
+  if(e.checked) {
+	insertIfAbsent(request.college, value);
+  } else {
+	removeIfPresent(request.college, value);
+  }
+  for (i=0; i<value.length; i++) {
+	$('#cc'+value[i]).prop('checked', e.checked);
+  }
+  console.log(request.college);
 }
 
 function selectGender(id, v) {
@@ -89,6 +106,7 @@ function selectGender(id, v) {
 	}
   }
   $(event.srcElement).toggleClass("active_img")
+  console.log(request.gender);
 }
 
 function selectRace(vis, d, r, v) {
@@ -101,10 +119,11 @@ function selectRace(vis, d, r, v) {
 	color = "#357EC7";
   }
   drawSelectionArc(vis, r, d.startAngle, d.endAngle, color);		// Outer boundary
+  console.log(request.race);
 }
 
 function selectAcad(e) {
-  value = ac[e.value];
+  value = acadChildren[e.value];
   if(e.checked) {
 	insertIfAbsent(request.acad, value);
   } else {
@@ -200,16 +219,3 @@ function drawSelectionArc(vis, r, sa, ea, color) {
 	 .style("stroke", "white")
 	 .style("stroke-width", 1);
 }
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      

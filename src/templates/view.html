@@ -9,12 +9,15 @@
       Map goes here.
     </div>
     <div id="filter" class="col-md-3">
-      <label for="col_dep" title="Select Colleges & Departments" style="padding-bottom:5px;">Colleges & Departments</label><br>
+      <label title="Select Colleges" style="padding-bottom:5px;">Colleges</label><br>
       <div id="col_dep" class="col-lg-12">
         <button id="btn_di" type="button" class="btn btn-block btn-primary" data-toggle="dropdown">
-          All<span class="caret"></span>
+          Colleges & Departments<span class="caret" style="float: right;"></span>
         </button>
-		<ul id="cd_dd" class="dropdown-menu"></ul>
+		<ul id="cd_dd" class="dropdown-menu">
+		  <input id="cc0" type="checkbox" value="0" style="margin-left: 10;" onClick="selectCollege(this)" checked/>
+		  <label for="cc0" style="margin-left: 5;">All Colleges & Departments</label><br>
+		</ul>
       </div>
 	  <br><br><hr>
 	  <div id="gn">
@@ -47,11 +50,14 @@
   		    <label style="margin-left:20;"><input id="al4" type="checkbox" value="4" onClick='selectAcad(this)'>Entering Transfer</label>
 		</div>
 	  </div>
-	  <button type="button" class="btn btn-primary" onClick="createCollegeListDD();">
+	  <button type="button" class="btn btn-primary" onClick="submitRequest();">
         <span class="glyphicon glyphicon-search"></span> View Students Distribution
       </button>
       <p><p><p><p>
 	</div>
   </div>
 </div>
+<script>
+  window.onload = createCollegeListDD();
+</script>
 {% endblock %}
