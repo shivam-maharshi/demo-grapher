@@ -8,11 +8,32 @@ var request = {
 var ac = [[1,2,3,4,5,6,7,8,9,10],[1,5,9,6,10],[2,7],[3,8],[4],[5,9],[6,10],[7],[8],[9],[10]];
 var cl;
 
-function createCollegeListDD() {
-	
+function createCollegeListDD() {										// Self invoking function.
+  getCollegeList();
+  var cont = $('#cd_dd');
+  for (i=0; i<cl.length; i++) {
+	c = cl[i];
+	addCheckbox(cont, c.cc, c.cn);
+	for (j=0; j<c.dl.length; j++) {
+		addLabel(cont, c.dl[j].dc, c.dl[j].dn);
+	}
+	$('<li />', {"class" : "divider"}).appendTo(cont);
+  }
+  console.log("invoked add checkbox.");
 }
 
-(function getCollegeList() {												// Self invoking function.
+function addCheckbox(cont, id, name) {
+  $('<input />', { type: 'checkbox', id: 'cc' + id, value: name, style: "margin-left: 20;" }).appendTo(cont);
+  $('<label />', { 'for': 'cc' + id, text: name }).appendTo(cont);
+  $('<br>').appendTo(cont);
+}
+
+function addLabel(cont, id, name) {
+  $('<label />', { id: 'dc' + id, text: name, style: "margin-left: 40;" }).appendTo(cont);
+  $('<br>').appendTo(cont);
+}
+
+function getCollegeList() {												
   $.ajax({
 	url: "http://127.0.0.1:5000/colleges",
 	type: "GET",
@@ -20,13 +41,14 @@ function createCollegeListDD() {
 	beforeSend: function (httpRequest) {
       httpRequest.setRequestHeader('Accept', 'application/json');},
 	dataType: 'json',
+	async: false,
 	success: function(response) {
 	  cl = response;
 	  console.log(cl)},
 	error: function (jqXHR, status, error) {
 	  $("#error").html("Error In fetching college list! : " + error);}
   });
-})();
+}
 
 function sendRequest() {
   $.ajax({
@@ -141,7 +163,7 @@ function displayChart() {
                 .data(pie)                          				// Associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties) 
                 .enter()                            				// This will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
                 .append("svg:g")                					// Create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
-                .attr("class", "slice cursor_hand")     			// Allow us to style things in the slices (like text)
+                .attr("class", "slice clickable")     			// Allow us to style things in the slices (like text)
                 .on("click", function(d, i) {
                   selectRace(vis, d, r, data[i].id);});
   

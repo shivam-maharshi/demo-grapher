@@ -1,5 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class="container-fluid">
+  <div id="error" class="row"></div>
+  <div class="row">
+<div id="filter" class="col-md-3">
+      <label for="di" title="Select Colleges & Departments" style="padding-bottom:5px;">Colleges & Departments</label><br>
+      <div id="di" class="col-lg-12">
+        <button id="btn_di" type="button" class="btn btn-block btn-primary dropdown-toggle" data-toggle="dropdown">
+          All<span class="caret"></span>
+        </button>
+		<ul class="dropdown-menu">
+  		  <li><a href="#"><input id="input1" type="checkbox"/>&nbsp;&nbsp;Option 1</a></li>
+  		  <li style="margin-left:20;"><a href="#"><input type="checkbox"/>&nbsp;&nbsp;Option 1</a></li>
+  		  <li style="margin-left:40;"><a href="#"><input type="checkbox"/>&nbsp;&nbsp;Option 1</a></li>
+  		  <li class="divider"></li>
+  		  <li><a href="#"><input id="input2" type="checkbox"/>&nbsp;&nbsp;Option 1</a></li>
+  		  <li style="margin-left:20;"><a href="#"><input type="checkbox"/>&nbsp;&nbsp;Option 1</a></li>
+  		  <li style="margin-left:40;"><a href="#"><input type="checkbox"/>&nbsp;&nbsp;Option 1</a></li>
+		</ul>
+      </div>
+      </div>
+      </div>
+      </div>
 {% endblock %}

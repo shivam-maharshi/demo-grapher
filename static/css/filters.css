@@ -1,13 +1,9 @@
-.cust-dropdown {
-    width: 200px;
-}
-
 .windows_blue {
 	/*(53,126,199)*/
 	color: #357EC7;
 }
 
-.cursor_hand {
+.clickable {
     cursor: hand;
 }
 
@@ -21,4 +17,8 @@
 	border-left-color: white;
 	border-right-color: white;
 	border-top-color: white;
+}
+
+.indented {
+	margin-left: 20;
 }
