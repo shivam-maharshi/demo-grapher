@@ -7,14 +7,14 @@ Python, Flask, Postgres DB, JavaScript, JQuery, D3, HTML5, Bootstrap
 # Usage
 
 ### Download
-`git clone https://github.com/shivam-maharshi/DemoGrapher`<br>
-`cd DemoGrapher`
+* `git clone https://github.com/shivam-maharshi/DemoGrapher`<br>
+* `cd DemoGrapher`
 
 ### Installation
-`make install`
+* `make install`
 
 ### Run
-`make run`
+* `make run`
 
 ### Postgres Data Dump
-[Download Data Dump](https://drive.google.com/open?id=0BxWBnne3rp_vSnU0Wm5NQXV1Z28)
+* [Download Data Dump](https://drive.google.com/open?id=0BxWBnne3rp_vSnU0Wm5NQXV1Z28)
