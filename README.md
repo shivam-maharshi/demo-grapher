@@ -2,7 +2,7 @@
 DemoGrapher helps in efficiently visualizing students data segregated by demographics. The information can be refined by numerous powerful filters based on criteria like Student Gender, Academic Year, Academic Level, College, Department, Major, etc.
 
 #### Technology Stack
-Python, Flask, D3, Bootstrap, HTML5
+Python, Flask, Postgres DB, JavaScript, JQuery, D3, HTML5, Bootstrap
 
 # Usage
 
@@ -15,3 +15,6 @@ Python, Flask, D3, Bootstrap, HTML5
 
 ### Run
 `make run`
+
+### Postgres Data Dump
+[Download Data Dump](https://drive.google.com/open?id=0BxWBnne3rp_vSnU0Wm5NQXV1Z28)
