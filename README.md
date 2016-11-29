@@ -7,7 +7,7 @@ Python, Flask, D3, Bootstrap, HTML5
 # Usage
 
 ### Download
-git clone https://github.com/shivam-maharshi/DemoGrapher
+git clone https://github.com/shivam-maharshi/DemoGrapher<br>
 cd DemoGrapher
 
 ### Installation
