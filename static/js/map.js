@@ -29,7 +29,7 @@ $(document).ready(function () {
 
     setTimeout(function () {
         maps[selected].resize();
-        containers[selected].css("visibility", "visible");
+        containers[selected].hide().css("visibility", "visible").fadeIn();
     }, 100);
 });
 
