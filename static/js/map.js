@@ -6,7 +6,6 @@ $(document).ready(function () {
     var resized = [true, true, true];
     var zooming = false;
 
-    maps[selected].resize();
     $map.on('mousewheel', function (e) {
         e.preventDefault();
         if (zooming)
@@ -26,7 +25,12 @@ $(document).ready(function () {
         maps[selected].resize();
         for (var i = 0; i < resized.length; i++)
             resized[i] = i == selected;
-    })
+    });
+
+    setTimeout(function () {
+        maps[selected].resize();
+        containers[selected].css("visibility", "visible");
+    }, 100);
 });
 
 function zoom(scrollIn, selected, containers) {
@@ -47,8 +51,8 @@ function zoom(scrollIn, selected, containers) {
 
 function setupVirginia($elem) {
     return new Datamap({
-        width: $elem.width(),
-        height: $elem.height(),
+        width: 1390,
+        height: 732,
         element: $elem[0],
         geographyConfig: {
             dataUrl: '/static/js/virginia.json'
