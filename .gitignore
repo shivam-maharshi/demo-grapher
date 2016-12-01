@@ -1,3 +1,22 @@
-*.project
+# Eclipse
+.classpath
+.factorypath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+out/
+bin/
+
+# NetBeans
+core
+nbproject/
+nb-configuration
+
 *.pydevproject
 *__pycache__
+
+*.pyc
