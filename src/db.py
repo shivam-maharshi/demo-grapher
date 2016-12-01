@@ -10,7 +10,7 @@ Database client for Postgres SQL Server.
 class PGClient(object):
     
     def __init__(self, user, password, db='demographer', host='127.0.0.1', port=5432):
-        self.url = 'postgresql://{}:{}@{}:{}/{}'.format('postgres', 'root', host, port, db)
+        self.url = 'postgresql://{}:{}@{}:{}/{}'.format(user, password, host, port, db)
         self.con = sqlalchemy.create_engine(self.url, client_encoding='utf8').connect()
         self.meta = sqlalchemy.MetaData(bind=self.con, reflect=True)
             

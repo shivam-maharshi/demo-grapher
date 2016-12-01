@@ -38,7 +38,7 @@ function addLabel(cont, id, name) {
 
 function getCollegeList() {												
   $.ajax({
-	url: "http://127.0.0.1:5000/colleges",
+	url: "/colleges",
 	type: "GET",
 	cache: false,
 	beforeSend: function (httpRequest) {
@@ -54,7 +54,7 @@ function getCollegeList() {
 
 function submitRequest() {
   $.ajax({
-	url: "http://127.0.0.1:5000/data",
+	url: "/data",
 	type: "POST",
 	cache: false,
 	beforeSend: function (httpRequest) {
@@ -105,7 +105,7 @@ function selectGender(id, v) {
 	  $("#"+id).attr('src', '/static/img/na.png');
 	}
   }
-  $(event.srcElement).toggleClass("active_img")
+  $(event.srcElement).toggleClass("active_img");
   console.log(request.gender);
 }
 
@@ -202,9 +202,9 @@ function displayChart() {
     	  drawSelectionArc(vis, r, d.startAngle, d.endAngle, "#357EC7");
     	  return data[i].label; })
       .attr("font-weight","Bold")
-      .style("font-size", "8px");								    // Get the label from our original data array
+      .style("font-size", "10px");								    // Get the label from our original data array
 
-};
+}
 
 function drawSelectionArc(vis, r, sa, ea, color) {
   var arc = d3.svg.arc()
