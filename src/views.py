@@ -16,9 +16,9 @@ dbc = PGClient(config.DB_USER, config.DB_PASSWORD, config.DB_NAME, config.DB_HOS
 def index():
     return render_template('index.html')
 
-@app.route('/view.html', methods=['GET'])
+@app.route('/message.html', methods=['GET'])
 def view():
-    return render_template('view.html')
+    return render_template('message.html')
 
 @app.route('/test.html')
 def test():
