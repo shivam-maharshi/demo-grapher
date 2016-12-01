@@ -4,20 +4,20 @@ $(document).ready(function () {
     var containers = [$('#virginia'), $('#usa'), $('#world')];
     var maps = [setupVirginia(containers[0]), setupUSA(containers[1]), setupWorld(containers[2])];
     var resized = [true, true, true];
-    var zooming = false;
+    var changingMap = false;
 
     $map.on('mousewheel', function (e) {
         e.preventDefault();
-        if (zooming)
+        if (changingMap)
             return;
-        zooming = true;
+        changingMap = true;
         zoom(e.originalEvent.wheelDelta / 120 > 0, selected, containers).done(function (newSelected) {
             selected = newSelected;
             if (!resized[selected]) {
                 maps[selected].resize();
                 resized[selected] = true;
             }
-            zooming = false;
+            changingMap = false;
         });
     });
 
@@ -27,6 +27,22 @@ $(document).ready(function () {
             resized[i] = i == selected;
     });
 
+    $('.breadcrumb li').on('click', function (e) {
+        e.preventDefault();
+        var index = 2 - $(this).index();
+        if (changingMap || selected == index)
+            return;
+        changingMap = true;
+        jump(selected, index, containers).done(function (newSelected) {
+            selected = newSelected;
+            if (!resized[selected]) {
+                maps[selected].resize();
+                resized[selected] = true;
+            }
+            changingMap = false;
+        });
+    });
+
     setTimeout(function () {
         maps[selected].resize();
         containers[selected].hide().css("visibility", "visible").fadeIn();
@@ -34,14 +50,19 @@ $(document).ready(function () {
 });
 
 function zoom(scrollIn, selected, containers) {
-    var dfd = $.Deferred();
     if ((scrollIn && selected == 0) || (!scrollIn && selected == containers.length - 1))
-        return dfd.resolve(selected);
-    containers[selected].fadeOut({
+        return $.Deferred().resolve(selected);
+    var next = scrollIn ? selected - 1 : selected + 1;
+    return jump(selected, next, containers);
+}
+
+function jump(from, to, containers) {
+    var dfd = $.Deferred();
+    containers[from].fadeOut({
         complete: function() {
-            containers[scrollIn ? --selected : ++selected].fadeIn({
+            containers[to].fadeIn({
                 complete: function () {
-                    dfd.resolve(selected);
+                    dfd.resolve(to);
                 }
             });
         }
@@ -52,7 +73,7 @@ function zoom(scrollIn, selected, containers) {
 function setupVirginia($elem) {
     return new Datamap({
         width: 1390,
-        height: 732,
+        height: 640,
         element: $elem[0],
         geographyConfig: {
             dataUrl: '/static/js/virginia.json'
@@ -63,7 +84,7 @@ function setupVirginia($elem) {
             var projection = d3.geo.equirectangular()
                 .center([0, 4])
                 .scale(8200)
-                .translate([12050, 5250]);
+                .translate([12050, 5200]);
             var path = d3.geo.path()
                 .projection(projection);
 
@@ -75,7 +96,7 @@ function setupVirginia($elem) {
 function setupUSA($elem) {
     return new Datamap({
         width: $elem.width(),
-        height: $elem.height(),
+        height: $elem.height() - 80,
         scope: 'usa',
         responsive: true,
         element: $elem[0]
@@ -85,7 +106,7 @@ function setupUSA($elem) {
 function setupWorld($elem) {
     return new Datamap({
         width: $elem.width(),
-        height: $elem.height(),
+        height: $elem.height() - 80,
         responsive: true,
         element: $elem[0]
     });
