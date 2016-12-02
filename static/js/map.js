@@ -43,12 +43,9 @@ $(document).ready(function () {
         });
     });
 
-    // hack around eventual rendering
-    setTimeout(function () {
-        updateMaps(testData);
-        maps[selected].resize();
-        containers[selected].hide().css("visibility", "visible").fadeIn();
-    }, 100);
+    updateMaps(testData);
+    maps[selected].resize();
+    containers[selected].hide().css("visibility", "visible").fadeIn();
 
     function zoom(scrollIn, selected, containers) {
         if ((scrollIn && selected == 0) || (!scrollIn && selected == containers.length - 1))
@@ -79,7 +76,6 @@ $(document).ready(function () {
             geographyConfig: {
                 highlightFillColor: '96BCE2',
                 highlightBorderColor: '#357EC7',
-                dataUrl: '/static/js/virginia.json'
             },
             fills: {
                 defaultFill: '#DCDCDC'
