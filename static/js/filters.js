@@ -48,6 +48,10 @@ function createCollegeDropDown(cl) {
 	}
 	$('<li />', {"class" : "divider"}).appendTo(cont);
   }
+  value = collegeChildren[0];
+  for (i=0; i<value.length; i++) {
+	$("#cc" + value[i]).prop('checked', true);
+  }
 }
 
 function setupCollegeDropDown() {
@@ -93,7 +97,11 @@ function selectCollege(e) {
   value = collegeChildren[parseInt(e.value)];
   if(e.checked) {
 	insertIfAbsent(request.college, value);
+	if(request.college.length==9) {
+	  $('#cc0').prop('checked', true);
+	}
   } else {
+	$('#cc0').prop('checked', false);										// Must deselect parent checkbox if child is deselected. 
 	removeIfPresent(request.college, value);
   }
   for (i=0; i<value.length; i++) {
@@ -159,16 +167,10 @@ function selectAcad(e) {
 }
 
 function checkAllAcad() {
+  $('#al0').prop("checked", true);
   value = acadChildren[0];
   for (i=0; i<value.length; i++) {
 	$('#al'+value[i]).prop("checked", true);
-  }
-}
-
-function checkAllCollege() {
-  value = collegeChildren[0];
-  for (i=0; i<value.length; i++) {
-	$("#cc" + value[i]).prop('checked', true);
   }
 }
 
