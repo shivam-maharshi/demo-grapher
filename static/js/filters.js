@@ -1,5 +1,4 @@
 var request = {
-  "context" : 'usa',
   "year" : 2007,
   "college" : [1,2,3,5,6,7,8,9,10],
   "gender" : [1,2,3],
@@ -75,21 +74,19 @@ function addLabel(cont, id, name) {
   $('<br>').appendTo(cont);
 }
 
-function submitRequest() {
-  $.ajax({
-	url: "/data",
-	type: "POST",
-	cache: false,
-	beforeSend: function (httpRequest) {
-	  httpRequest.setRequestHeader('Content-Type', 'application/json');},
-    dataType: 'json',
-    data : encodeURI((JSON.stringify(request))),
-	processData: false,
-	success: function(response) {
-	  },
-	error: function (jqXHR, status, error) {
-	  $("#error").html("Error In submitting request! : " + error);}
-  });
+function submitRequest(onSuccess) {
+    $.ajax({
+        url: "/data",
+        type: "POST",
+        cache: false,
+        accept: 'application/json',
+        data : encodeURI(JSON.stringify(request)),
+        processData: false,
+        success: onSuccess,
+        error: function (jqXHR, status, error) {
+            $("#error").html("Error In submitting request! : " + error);
+        }
+    });
 }
 
 function selectCollege(e) {

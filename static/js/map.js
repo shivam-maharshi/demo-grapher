@@ -3,6 +3,7 @@ $(document).ready(function () {
     var selected = 0;
     var containers = [$('#virginia'), $('#usa'), $('#world')];
     var maps = [setupVirginia(containers[0]), setupUSA(containers[1]), setupWorld(containers[2])];
+    var contexts = { 'virginia': 0, 'usa': 1, 'world': 2 };
     var resized = [true, true, true];
     var changingMap = false;
 
@@ -43,7 +44,9 @@ $(document).ready(function () {
         });
     });
 
-    updateMaps(testData);
+    $('#submit').on('click', updateMaps);
+
+    updateMaps();
     maps[selected].resize();
     containers[selected].hide().css("visibility", "visible").fadeIn();
 
@@ -75,7 +78,7 @@ $(document).ready(function () {
             element: $elem[0],
             geographyConfig: {
                 highlightFillColor: '96BCE2',
-                highlightBorderColor: '#357EC7',
+                highlightBorderColor: '#357EC7'
             },
             fills: {
                 defaultFill: '#DCDCDC'
@@ -128,25 +131,30 @@ $(document).ready(function () {
         });
     }
 
-    function updateMaps(data) {
-        var labels, colors, colorScale;
-        for (var i = 0; i < data.length && i < containers.length; i++) {
-            if (Object.keys(data[i]).length == 0)
-                continue;
+    function updateMaps() {
+        for (var context in contexts) {
+            request.context = key;
+            submitRequest(function (data) {
+                var labels, colors, colorScale;
+                var current = contexts[data.context];
+                if (!('context' in data) || Object.keys(data).length == 0)
+                    return;
 
-            labels = data[i].values;
-            maps[i].labels({'customLabelText': labels});
+                labels = data.values;
+                Object.keys(labels).map(function (key) {
+                    labels[key] = labels[key].count;
+                });
+                maps[current].labels({'customLabelText': labels});
 
-            colorScale = d3.scale.linear().domain([data[i].min, data[i].avg, data[i].max]).range(["red", "yellow", "green"]);
-            colors = data[i].values;
-            Object.keys(colors).map(function (key, index) {
-                colors[key] = colorScale(colors[key]);
+                colorScale = d3.scale.linear().domain([data.min, data.avg, data.max]).range(["red", "yellow", "green"]);
+                colors = data.values;
+                Object.keys(colors).map(function (key) {
+                    colors[key] = colorScale(colors[key].count);
+                });
+                maps[current].updateChoropleth(colors);
             });
-            maps[i].updateChoropleth(colors);
         }
     }
-
-    window.document.updateMaps = updateMaps;
 });
 
 var testData = [
