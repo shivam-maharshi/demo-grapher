@@ -54,6 +54,17 @@ def list_all_colleges():
     
     return JsonResponse(cl).json
 
+@app.route('/years')
+def list_all_years():
+    dbc = PGClient(config.DB_USER, config.DB_PASSWORD, config.DB_NAME, config.DB_HOST, config.DB_PORT)
+    rows = dbc.execute('SELECT DISTINCT "Year" FROM "Student_residency";')
+    years = { 'years': [] }
+    for row in rows:
+        years['years'].append(int(row[0]))
+    years['years'].sort()
+
+    return JsonResponse(years).json
+
 @app.after_request
 def add_header(response):
     """

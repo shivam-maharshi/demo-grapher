@@ -26,6 +26,10 @@
                         </ol>
                     </div>
                 </div>
+                <div id="sc">
+                    <label for="slider" title="Select Year" style="padding-bottom: 5px;">Year</label>
+                    <div id="slider"></div>
+                </div>
             </div>
             <div id="filter" class="col-md-3">
                 <label title="Select Colleges" style="padding-bottom:5px;">Colleges</label><br>
@@ -95,6 +99,9 @@
         </div>
     </div>
     <script>
-        window.onload = createCollegeListDD();
+        window.onload = function () {
+            createCollegeListDD();
+            setupYearSlider();
+        }
     </script>
 {% endblock %}

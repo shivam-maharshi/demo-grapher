@@ -96,7 +96,7 @@ function setupVirginia($elem) {
 function setupUSA($elem) {
     return new Datamap({
         width: $elem.width(),
-        height: $elem.height() - 80,
+        height: $elem.height() - 170,
         scope: 'usa',
         responsive: true,
         element: $elem[0]
@@ -106,7 +106,7 @@ function setupUSA($elem) {
 function setupWorld($elem) {
     return new Datamap({
         width: $elem.width(),
-        height: $elem.height() - 80,
+        height: $elem.height() - 170,
         responsive: true,
         element: $elem[0]
     });

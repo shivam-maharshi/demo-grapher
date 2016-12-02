@@ -11,6 +11,35 @@ var collegeChildren = [[1,2,3,5,6,7,8,9,10],[1],[2],[3],[],[5],[6],[7],[8],[9],[
 
 var cl;
 
+function getYearList(onDone) {
+    $.ajax({
+        url: "/years",
+        type: "GET",
+        accept: 'application/json',
+        async: false,
+        success: onDone,
+        error: function (jqXHR, status, error) { $("#error").html("Error In fetching year list! : " + error); }
+    });
+}
+
+function setupYearSlider() {
+    getYearList(function (years) {
+        years = JSON.parse(years).years;
+        request["year"] = years[years.length - 1];
+        $('#slider').ionRangeSlider({
+            type: 'single',
+            grid: true,
+            values: years,
+            from: years[years.length - 1],
+            prettify_enabled: false,
+            onFinish: function (data) {
+                console.log(data.from_value);
+                request["year"] = data.from_value;
+            }
+        });
+    });
+}
+
 function createCollegeListDD() {										// Self invoking function.
   getCollegeList();
   var cont = $('#cd_dd');
