@@ -21,7 +21,7 @@
         dataUrl: null,
         hideAntarctica: true,
         hideHawaiiAndAlaska : false,
-        borderWidth: 1,
+        borderWidth: 2,
         borderOpacity: 1,
         borderColor: '#FDFDFD',
         popupTemplate: function(geography, data) {

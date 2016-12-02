@@ -140,11 +140,11 @@ $(document).ready(function () {
                 if (!('context' in data) || Object.keys(data).length == 0)
                     return;
 
-                labels = {};
-                Object.keys(data.values).map(function (key) {
-                    labels[key] = data.values[key].count;
-                });
-                maps[current].labels({'customLabelText': labels});
+                // labels = {};
+                // Object.keys(data.values).map(function (key) {
+                //     labels[key] = data.values[key].count;
+                // });
+                // maps[current].labels({'customLabelText': labels});
 
                 if (!resized[current]) {
                     maps[selected].resize();
