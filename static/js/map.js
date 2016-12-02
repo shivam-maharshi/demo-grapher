@@ -45,8 +45,8 @@ $(document).ready(function () {
 
     // hack around eventual rendering
     setTimeout(function () {
-        maps[selected].resize();
         updateMaps(testData);
+        maps[selected].resize();
         containers[selected].hide().css("visibility", "visible").fadeIn();
     }, 100);
 
