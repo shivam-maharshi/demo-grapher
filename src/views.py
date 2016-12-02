@@ -49,14 +49,17 @@ def get_response_entity(req):
     avg = 0
     min = 10000000000
     max = 0
+    counts = []
     for country in entities:
         stats = entities[country]
+        counts.append(stats.count)
         min = stats.count if (stats.count < min) else min
         max = stats.count if (stats.count > max) else max
         avg += stats.count
-
     avg = avg / (1 if len(entities) == 0 else len(entities))
-    return Entity(req.context, avg, min, max, entities)
+    counts.sort()
+    median = counts[int(len(counts)/2)]
+    return Entity(req.context, avg, median, min, max, entities)
 
 def get_lookup_map(context):
     if (context == 'world'):

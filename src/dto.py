@@ -19,9 +19,10 @@ class Department(object):
 
 class Entity(object):
 
-    def __init__(self, context, avg, min, max, values):
+    def __init__(self, context, avg, median, min, max, values):
         self.context = context
         self.avg = avg
+        self.median = median
         self.min = min
         self.max = max
         self.values = values
