@@ -77,8 +77,8 @@ $(document).ready(function () {
             height: 640,
             element: $elem[0],
             geographyConfig: {
-                highlightFillColor: 'CCFFFF',
-                highlightBorderColor: '#4B0082',
+                highlightFillColor: '96BCE2',
+                highlightBorderColor: '#357EC7',
                 dataUrl: '/static/js/virginia.json'
             },
             fills: {
@@ -104,8 +104,8 @@ $(document).ready(function () {
             width: $elem.width(),
             height: $elem.height() - 170,
             geographyConfig: {
-                highlightFillColor: 'CCFFFF',
-                highlightBorderColor: '#4B0082'
+                highlightFillColor: '96BCE2',
+                highlightBorderColor: '#357EC7'
             },
             fills: {
                 defaultFill: '#DCDCDC'
@@ -121,8 +121,8 @@ $(document).ready(function () {
             width: $elem.width(),
             height: $elem.height() - 170,
             geographyConfig: {
-                highlightFillColor: 'CCFFFF',
-                highlightBorderColor: '#4B0082'
+                highlightFillColor: '96BCE2',
+                highlightBorderColor: '#357EC7'
             },
             fills: {
                 defaultFill: '#DCDCDC'
