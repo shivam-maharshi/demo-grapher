@@ -97,12 +97,20 @@ function selectCollege(e) {
   value = collegeChildren[parseInt(e.value)];
   if(e.checked) {
 	insertIfAbsent(request.college, value);
-	if(request.college.length==9) {
+	if(request.college.length == 9) {
 	  $('#cc0').prop('checked', true);
 	}
   } else {
-	$('#cc0').prop('checked', false);										// Must deselect parent checkbox if child is deselected. 
-	removeIfPresent(request.college, value);
+	if(e.value != 0) {
+	  $('#cc0').prop('checked', false);											// Must deselect parent checkbox if child is deselected.
+	} else {
+	  $('#cc0').prop('checked', true);
+	}
+	if (request.college.length > 1 && e.value != 0) {
+	  removeIfPresent(request.college, value);
+	} else {
+	  $('#cc'+e.value).prop('checked', true);
+	}
   }
   for (i=0; i<value.length; i++) {
 	$('#cc'+value[i]).prop('checked', e.checked);
