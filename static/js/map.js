@@ -164,6 +164,8 @@ $(document).ready(function () {
             });
         }
     }
+
+    window.document.updateMaps = updateMaps;
 });
 
 var testData = [
