@@ -43,8 +43,10 @@ $(document).ready(function () {
         });
     });
 
+    // hack around eventual rendering
     setTimeout(function () {
         maps[selected].resize();
+        maps[selected].labels();
         containers[selected].hide().css("visibility", "visible").fadeIn();
     }, 100);
 });
@@ -71,7 +73,7 @@ function jump(from, to, containers) {
 }
 
 function setupVirginia($elem) {
-    return new Datamap({
+    var map = new Datamap({
         width: 1390,
         height: 640,
         element: $elem[0],
@@ -91,23 +93,32 @@ function setupVirginia($elem) {
             return { path: path, projection: projection };
         }
     });
+
+    map.labels();
+    return map;
 }
 
 function setupUSA($elem) {
-    return new Datamap({
+    var map = new Datamap({
         width: $elem.width(),
         height: $elem.height() - 170,
         scope: 'usa',
         responsive: true,
         element: $elem[0]
     });
+
+    map.labels();
+    return map;
 }
 
 function setupWorld($elem) {
-    return new Datamap({
+    var map = new Datamap({
         width: $elem.width(),
         height: $elem.height() - 170,
         responsive: true,
         element: $elem[0]
     });
+
+    map.labels();
+    return map;
 }
