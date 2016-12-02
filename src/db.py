@@ -1,7 +1,5 @@
 import sqlalchemy
 
-from src import config
-
 '''
 Database client for Postgres SQL Server.
 
@@ -27,10 +25,12 @@ class PGClient(object):
             records.append(row)
         return records
         
-
     def print_all_columns(self, table):
         for col in self.meta.tables[table].c:
             print(col)
 
 #dbc = PGClient(config.DB_USER, config.DB_PASSWORD, config.DB_NAME, config.DB_HOST, config.DB_PORT)
 #dbc.execute('SELECT DISTINCT ON("College") "College" FROM "Student_residency" WHERE "College_code"::int8=9')
+#rows = dbc.execute('SELECT "Nation", "College_code", "Gender_code", "Ethnicity_code" FROM "Student_residency"')
+#rows = dbc.execute('SELECT "State_name", "College_code", "Gender_code", "Ethnicity_code" FROM "Student_residency" WHERE "Nation_code"=0')
+#rows = dbc.execute('SELECT "County_city", "College_code", "Gender_code", "Ethnicity_code" FROM "Student_residency" WHERE "Nation_code"=0 AND "State_name"=\'Virginia\'')

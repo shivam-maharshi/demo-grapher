@@ -1,4 +1,5 @@
 var request = {
+  "context" : 'usa',
   "year" : 2007,
   "college" : [1,2,3,5,6,7,8,9,10],
   "gender" : [1,2,3],
@@ -46,7 +47,7 @@ function createCollegeListDD() {										// Self invoking function.
   for (i=0; i<cl.length; i++) {											// Add checkboxes dynamically.
 	c = cl[i];
 	addCheckbox(cont, parseInt(c.cc), c.cn);
-	$("#cc" + cl[i].cc).prop('checked', true);
+	$("#cc" + c.cc).prop('checked', true);
 	for (j=0; j<c.dl.length; j++) {
 	  addLabel(cont, parseInt(c.dl[j].dc), c.dl[j].dn);
 	}
@@ -205,13 +206,13 @@ function displayChart() {
   var pie = d3.layout.pie().value(function(d) { return d.value; }); // This will create arc data for us given a list of values. 
   																	// We must tell it out to access the value of each element in our data array
   
-  var arc = d3.svg.arc().outerRadius(r); 							    // This will create <path> elements for us using arc data
+  var arc = d3.svg.arc().outerRadius(r); 							// This will create <path> elements for us using arc data
   
   var arcs = vis.selectAll("g.slice")     							// This selects all <g> elements with class slice (there aren't any yet)
                 .data(pie)                          				// Associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties) 
                 .enter()                            				// This will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
                 .append("svg:g")                					// Create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
-                .attr("class", "slice clickable")     			// Allow us to style things in the slices (like text)
+                .attr("class", "slice clickable")     				// Allow us to style things in the slices (like text)
                 .on("click", function(d, i) {
                   selectRace(vis, d, r, data[i].id);});
   
