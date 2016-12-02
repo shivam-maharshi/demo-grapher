@@ -11,8 +11,6 @@ var acadChildren = [[0,1,2,3,4,5,6,7,8,9,10],[1,5,9,6,10],[2,7],[3,8],[4],[5,9],
 var acadParent = [[0],[0],[0],[0],[0],[0,1],[0,1],[0],[0],[0],[0]];
 var collegeChildren = [[1,2,3,5,6,7,8,9,10],[1],[2],[3],[],[5],[6],[7],[8],[9],[10]];
 
-var cl;
-
 function getYearList(onDone) {
     $.ajax({
         url: "/years",
@@ -42,8 +40,7 @@ function setupYearSlider() {
     });
 }
 
-function createCollegeListDD() {										// Self invoking function.
-  getCollegeList();
+function createCollegeDropDown(cl) {										
   var cont = $('#cd_dd');
   for (i=0; i<cl.length; i++) {											// Add checkboxes dynamically.
 	c = cl[i];
@@ -56,6 +53,20 @@ function createCollegeListDD() {										// Self invoking function.
   }
 }
 
+function setupCollegeDropDown() {
+  $.ajax({
+	url: "/colleges",
+	type: "GET",
+	cache: false,
+	beforeSend: function (httpRequest) {
+    httpRequest.setRequestHeader('Accept', 'application/json');},
+	dataType: 'json',
+	success: createCollegeDropDown,
+	error: function (jqXHR, status, error) {
+	  $("#error").html("Error In fetching college list! : " + error);}
+  });
+}
+
 function addCheckbox(cont, id, name) {
   $('<input />', { type: 'checkbox', id: 'cc' + id, value: id, style: "margin-left: 10;", onClick: "selectCollege(this)"}).appendTo(cont);
   $('<label />', { 'for': 'cc' + id, text: name, style: "margin-left: 5;" }).appendTo(cont);
@@ -65,22 +76,6 @@ function addCheckbox(cont, id, name) {
 function addLabel(cont, id, name) {
   $('<label />', { id: 'dc' + id, text: name, style: "margin-left: 40; font-weight: normal;" }).appendTo(cont);
   $('<br>').appendTo(cont);
-}
-
-function getCollegeList() {												
-  $.ajax({
-	url: "/colleges",
-	type: "GET",
-	cache: false,
-	beforeSend: function (httpRequest) {
-      httpRequest.setRequestHeader('Accept', 'application/json');},
-	dataType: 'json',
-	async: false,
-	success: function(response) {
-	  cl = response;},
-	error: function (jqXHR, status, error) {
-	  $("#error").html("Error In fetching college list! : " + error);}
-  });
 }
 
 function submitRequest() {
