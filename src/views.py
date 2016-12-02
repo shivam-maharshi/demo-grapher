@@ -71,11 +71,11 @@ def get_lookup_map(context):
 
 def prepare_data_query(req):
     if (req.context == 'world'):
-        s = 'SELECT "Nation", "College_code", "Gender_code", "Ethnicity_code" FROM "Student_residency"'
+        s = 'SELECT "Nation", "College_code", "Gender_code", "Ethnicity_code" FROM "Student_residency" WHERE "Year"=' + str(req.year)
     elif (req.context =='usa'):
-        s = 'SELECT "State_name", "College_code", "Gender_code", "Ethnicity_code" FROM "Student_residency" WHERE "Nation_code"=0'
+        s = 'SELECT "State_name", "College_code", "Gender_code", "Ethnicity_code" FROM "Student_residency" WHERE "Nation_code"=0 AND "Year"=' + str(req.year)
     else:
-        s = 'SELECT "County_city", "College_code", "Gender_code", "Ethnicity_code" FROM "Student_residency" WHERE "Nation_code"=0 AND "State_name"=\'Virginia\''
+        s = 'SELECT "County_city", "College_code", "Gender_code", "Ethnicity_code" FROM "Student_residency" WHERE "Nation_code"=0 AND "State_name"=\'Virginia\' AND "Year"=' + str(req.year)
     
     if len(req.college) is not 9:
         s += ' AND ("College_code"::int8=' + str(req.college[0])
