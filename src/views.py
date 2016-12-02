@@ -108,7 +108,8 @@ def render_favicon():
 @app.route('/colleges')
 def list_all_colleges():
     dbc = PGClient(DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT)
-    rows = dbc.execute('SELECT DISTINCT ON("Department") "College_code", "College", "Department_code", "Department" FROM "Student_residency";')
+    #rows = dbc.execute('SELECT DISTINCT ON("Department") "College_code", "College", "Department_code", "Department" FROM "Student_residency";')
+    rows = dbc.execute('SELECT "College_code", "College", "Department_code", "Department" FROM "Department";')
     lookup = {}
     cl = []
     for row in rows:

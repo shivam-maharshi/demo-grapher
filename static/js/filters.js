@@ -7,7 +7,8 @@ var request = {
   "acad" : [1,2,3,4,5,6,7,8,9,10]
 };
 
-var acadChildren = [[1,2,3,4,5,6,7,8,9,10],[1,5,9,6,10],[2,7],[3,8],[4],[5,9],[6,10],[7],[8],[9],[10]];
+var acadChildren = [[0,1,2,3,4,5,6,7,8,9,10],[1,5,9,6,10],[2,7],[3,8],[4],[5,9],[6,10],[7],[8],[9],[10]];
+var acadParent = [[0],[0],[0],[0],[0],[0,1],[0,1],[0],[0],[0],[0]];
 var collegeChildren = [[1,2,3,5,6,7,8,9,10],[1],[2],[3],[],[5],[6],[7],[8],[9],[10]];
 
 var cl;
@@ -93,15 +94,13 @@ function submitRequest() {
     data : encodeURI((JSON.stringify(request))),
 	processData: false,
 	success: function(response) {
-	  $("#demo").html("abc");},
+	  },
 	error: function (jqXHR, status, error) {
 	  $("#error").html("Error In submitting request! : " + error);}
   });
 }
 
 function selectCollege(e) {
-  console.log(e);
-  console.log(e.value);
   value = collegeChildren[parseInt(e.value)];
   if(e.checked) {
 	insertIfAbsent(request.college, value);
@@ -117,14 +116,17 @@ function selectCollege(e) {
 function selectGender(id, v) {
   index = jQuery.inArray(v, request.gender);
   if (index > -1) {
-    request.gender.splice(index, 1);
-    if (id=='f_img') {
-      $("#"+id).attr('src', '/static/img/fi.png');
-    } else if (id=='m_img') {
-      $("#"+id).attr('src', '/static/img/mi.png');
-    } else {
-      $("#"+id).attr('src', '/static/img/ni.png');
-    }
+	if (request.gender.length > 1) {
+	  request.gender.splice(index, 1);
+	  if (id=='f_img') {
+	    $("#"+id).attr('src', '/static/img/fi.png');
+	  } else if (id=='m_img') {
+	    $("#"+id).attr('src', '/static/img/mi.png');
+	  } else {
+	    $("#"+id).attr('src', '/static/img/ni.png');
+	  }
+	  $(event.srcElement).toggleClass("active_img");
+	}
   } else {
 	request.gender.push(v);
 	if (id=='f_img') {
@@ -134,21 +136,23 @@ function selectGender(id, v) {
 	} else {
 	  $("#"+id).attr('src', '/static/img/na.png');
 	}
+	$(event.srcElement).toggleClass("active_img");
   }
-  $(event.srcElement).toggleClass("active_img");
+  
   console.log(request.gender);
 }
 
 function selectRace(vis, d, r, v) {
   var index = jQuery.inArray(v, request.race);
-  var color = "white";
   if (index > -1) {
-    request.race.splice(index, 1);
+	if (request.race.length > 1) {
+      request.race.splice(index, 1);
+      drawSelectionArc(vis, r, d.startAngle, d.endAngle, "white");			// Outer boundary
+	}
   } else {
 	request.race.push(v);
-	color = "#357EC7";
+	drawSelectionArc(vis, r, d.startAngle, d.endAngle, "#357EC7");			// Outer boundary
   }
-  drawSelectionArc(vis, r, d.startAngle, d.endAngle, color);		// Outer boundary
   console.log(request.race);
 }
 
@@ -160,7 +164,15 @@ function selectAcad(e) {
 	removeIfPresent(request.acad, value);
   }
   for (i=0; i<value.length; i++) {
-	$('#al'+value[i]).prop('checked', e.checked);
+	$('#al'+value[i]).prop("checked", e.checked);
+  }
+  console.log(request.acad);
+}
+
+function checkAllAcad() {
+  value = acadChildren[0];
+  for (i=0; i<value.length; i++) {
+	$('#al'+value[i]).prop("checked", true);
   }
 }
 
@@ -233,7 +245,6 @@ function displayChart() {
     	  return data[i].label; })
       .attr("font-weight","Bold")
       .style("font-size", "10px");								    // Get the label from our original data array
-
 }
 
 function drawSelectionArc(vis, r, sa, ea, color) {

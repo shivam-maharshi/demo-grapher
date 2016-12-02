@@ -67,7 +67,7 @@
                     <div class="checkbox">
                         <label><input id="al0" type="checkbox" value="0" onClick='selectAcad(this)'>All Students</label><br>
                         <label style="margin-left:20;"><input id="al1" type="checkbox" value="1"
-                                                              onClick='selectAcad(this)'>Graduates</label><br>
+                                                              onClick='selectAcad(this)'>All Graduates</label><br>
                         <label style="margin-left:40;"><input id="al5" type="checkbox" value="5"
                                                               onClick='selectAcad(this)'>Masters</label><br>
                         <label style="margin-left:60;"><input id="al9" type="checkbox" value="9"
@@ -77,7 +77,7 @@
                         <label style="margin-left:60;"><input id="al10" type="checkbox" value="10"
                                                               onClick='selectAcad(this)'>Entering Doctoral</label><br>
                         <label style="margin-left:20;"><input id="al2" type="checkbox" value="2"
-                                                              onClick='selectAcad(this)'>Undergraduate</label><br>
+                                                              onClick='selectAcad(this)'>Undergraduates</label><br>
                         <label style="margin-left:40;"><input id="al7" type="checkbox" value="7"
                                                               onClick='selectAcad(this)'>Entering Freshman</label><br>
                         <label style="margin-left:20;"><input id="al3" type="checkbox" value="3"
@@ -101,6 +101,7 @@
     <script>
         window.onload = function () {
             createCollegeListDD();
+            checkAllAcad();
             setupYearSlider();
         }
     </script>
