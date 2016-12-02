@@ -46,79 +46,171 @@ $(document).ready(function () {
     // hack around eventual rendering
     setTimeout(function () {
         maps[selected].resize();
-        maps[selected].labels();
+        updateMaps(testData);
         containers[selected].hide().css("visibility", "visible").fadeIn();
     }, 100);
+
+    function zoom(scrollIn, selected, containers) {
+        if ((scrollIn && selected == 0) || (!scrollIn && selected == containers.length - 1))
+            return $.Deferred().resolve(selected);
+        var next = scrollIn ? selected - 1 : selected + 1;
+        return jump(selected, next, containers);
+    }
+
+    function jump(from, to, containers) {
+        var dfd = $.Deferred();
+        containers[from].fadeOut({
+            complete: function() {
+                containers[to].fadeIn({
+                    complete: function () {
+                        dfd.resolve(to);
+                    }
+                });
+            }
+        });
+        return dfd.promise();
+    }
+
+    function setupVirginia($elem) {
+        return new Datamap({
+            width: 1390,
+            height: 640,
+            element: $elem[0],
+            geographyConfig: {
+                highlightFillColor: 'CCFFFF',
+                highlightBorderColor: '#4B0082',
+                dataUrl: '/static/js/virginia.json'
+            },
+            fills: {
+                defaultFill: '#DCDCDC'
+            },
+            scope: 'virginia',
+            responsive: true,
+            setProjection: function (element, options) {
+                var projection = d3.geo.equirectangular()
+                    .center([0, 4])
+                    .scale(8200)
+                    .translate([12050, 5200]);
+                var path = d3.geo.path()
+                    .projection(projection);
+
+                return { path: path, projection: projection };
+            }
+        });
+    }
+
+    function setupUSA($elem) {
+        return new Datamap({
+            width: $elem.width(),
+            height: $elem.height() - 170,
+            geographyConfig: {
+                highlightFillColor: 'CCFFFF',
+                highlightBorderColor: '#4B0082'
+            },
+            fills: {
+                defaultFill: '#DCDCDC'
+            },
+            scope: 'usa',
+            responsive: true,
+            element: $elem[0]
+        });
+    }
+
+    function setupWorld($elem) {
+        return new Datamap({
+            width: $elem.width(),
+            height: $elem.height() - 170,
+            geographyConfig: {
+                highlightFillColor: 'CCFFFF',
+                highlightBorderColor: '#4B0082'
+            },
+            fills: {
+                defaultFill: '#DCDCDC'
+            },
+            responsive: true,
+            element: $elem[0]
+        });
+    }
+
+    function updateMaps(data) {
+        var labels, colors, colorScale;
+        for (var i = 0; i < data.length && i < containers.length; i++) {
+            if (Object.keys(data[i]).length == 0)
+                continue;
+
+            labels = data[i].values;
+            maps[i].labels({'customLabelText': labels});
+
+            colorScale = d3.scale.linear().domain([data[i].min, data[i].avg, data[i].max]).range(["red", "yellow", "green"]);
+            colors = data[i].values;
+            Object.keys(colors).map(function (key, index) {
+                colors[key] = colorScale(colors[key]);
+            });
+            maps[i].updateChoropleth(colors);
+        }
+    }
+
+    window.document.updateMaps = updateMaps;
 });
 
-function zoom(scrollIn, selected, containers) {
-    if ((scrollIn && selected == 0) || (!scrollIn && selected == containers.length - 1))
-        return $.Deferred().resolve(selected);
-    var next = scrollIn ? selected - 1 : selected + 1;
-    return jump(selected, next, containers);
-}
-
-function jump(from, to, containers) {
-    var dfd = $.Deferred();
-    containers[from].fadeOut({
-        complete: function() {
-            containers[to].fadeIn({
-                complete: function () {
-                    dfd.resolve(to);
-                }
-            });
+var testData = [
+    {
+        "avg": 7,
+        "min": 1,
+        "max": 9,
+        "values": {
+            "VA1": 1,
+            "VA2": 4,
+            "VA3": 9,
+            "VA4": 7,
+            "VA5": 8,
+            "VA6": 1,
+            "VA7": 7,
+            "VA8": 2,
+            "VA9": 5,
+            "VA10": 6,
+            "VA11": 8,
+            "VA12": 3,
+            "VA13": 5,
+            "VA14": 3,
+            "VA15": 9,
+            "VA16": 3,
+            "VA17": 7,
+            "VA18": 6,
+            "VA19": 9,
+            "VA20": 4,
+            "VA21": 7,
+            "VA22": 3,
+            "VA23": 5,
+            "VA24": 9,
+            "VA25": 1,
+            "VA26": 4,
+            "VA27": 7,
+            "VA28": 7,
+            "VA29": 1,
+            "VA30": 6,
+            "VA31": 2,
+            "VA32": 6,
+            "VA33": 6,
+            "VA34": 7,
+            "VA35": 6,
+            "VA36": 3,
+            "VA37": 2,
+            "VA38": 1,
+            "VA39": 4,
+            "VA40": 1,
+            "VA41": 5,
+            "VA42": 8,
+            "VA43": 3,
+            "VA44": 5,
+            "VA45": 1,
+            "VA46": 7,
+            "VA47": 9,
+            "VA48": 9,
+            "VA49": 8,
+            "VA50": 5
         }
-    });
-    return dfd.promise();
-}
-
-function setupVirginia($elem) {
-    var map = new Datamap({
-        width: 1390,
-        height: 640,
-        element: $elem[0],
-        geographyConfig: {
-            dataUrl: '/static/js/virginia.json'
-        },
-        scope: 'virginia',
-        responsive: true,
-        setProjection: function (element, options) {
-            var projection = d3.geo.equirectangular()
-                .center([0, 4])
-                .scale(8200)
-                .translate([12050, 5200]);
-            var path = d3.geo.path()
-                .projection(projection);
-
-            return { path: path, projection: projection };
-        }
-    });
-
-    map.labels();
-    return map;
-}
-
-function setupUSA($elem) {
-    var map = new Datamap({
-        width: $elem.width(),
-        height: $elem.height() - 170,
-        scope: 'usa',
-        responsive: true,
-        element: $elem[0]
-    });
-
-    map.labels();
-    return map;
-}
-
-function setupWorld($elem) {
-    var map = new Datamap({
-        width: $elem.width(),
-        height: $elem.height() - 170,
-        responsive: true,
-        element: $elem[0]
-    });
-
-    map.labels();
-    return map;
-}
+    },
+    {},
+    {}
+];
