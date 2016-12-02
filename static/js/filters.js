@@ -7,7 +7,7 @@ var request = {
   "acad" : [1,2,3,4,5,6,7,8,9,10]
 };
 
-var acadChildren = [[0,1,2,3,4,5,6,7,8,9,10],[1,5,9,6,10],[2,7],[3,8],[4],[5,9],[6,10],[7],[8],[9],[10]];
+var acadChildren = [[1,2,3,4,5,6,7,8,9,10],[1,5,9,6,10],[2,7],[3,8],[4],[5,9],[6,10],[7],[8],[9],[10]];
 var acadParent = [[0],[0],[0],[0],[0],[0,1],[0,1],[0],[0],[0],[0]];
 var collegeChildren = [[1,2,3,5,6,7,8,9,10],[1],[2],[3],[],[5],[6],[7],[8],[9],[10]];
 
@@ -41,10 +41,9 @@ function setupYearSlider() {
 
 function createCollegeDropDown(cl) {										
   var cont = $('#cd_dd');
-  for (i=0; i<cl.length; i++) {											// Add checkboxes dynamically.
+  for (i=0; i<cl.length; i++) {												// Add checkboxes dynamically.
 	c = cl[i];
 	addCheckbox(cont, parseInt(c.cc), c.cn);
-	$("#cc" + c.cc).prop('checked', true);
 	for (j=0; j<c.dl.length; j++) {
 	  addLabel(cont, parseInt(c.dl[j].dc), c.dl[j].dn);
 	}
@@ -56,7 +55,6 @@ function setupCollegeDropDown() {
   $.ajax({
 	url: "/colleges",
 	type: "GET",
-	cache: false,
 	beforeSend: function (httpRequest) {
     httpRequest.setRequestHeader('Accept', 'application/json');},
 	dataType: 'json',
@@ -170,6 +168,13 @@ function checkAllAcad() {
   }
 }
 
+function checkAllCollege() {
+  value = collegeChildren[0];
+  for (i=0; i<value.length; i++) {
+	$("#cc" + value[i]).prop('checked', true);
+  }
+}
+
 function insertIfAbsent(array, value) {
   for (i=0; i<value.length; i++) {
     if(jQuery.inArray(value[i], array) < 0) {
@@ -211,7 +216,6 @@ function displayChart() {
   
   var pie = d3.layout.pie().value(function(d) { return d.value; }); // This will create arc data for us given a list of values. 
   																	// We must tell it out to access the value of each element in our data array
-  
   var arc = d3.svg.arc().outerRadius(r); 							// This will create <path> elements for us using arc data
   
   var arcs = vis.selectAll("g.slice")     							// This selects all <g> elements with class slice (there aren't any yet)

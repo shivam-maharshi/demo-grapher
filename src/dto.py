@@ -19,7 +19,8 @@ class Department(object):
 
 class Entity(object):
 
-    def __init__(self, avg, min, max, values):
+    def __init__(self, context, avg, min, max, values):
+        self.context = context
         self.avg = avg
         self.min = min
         self.max = max

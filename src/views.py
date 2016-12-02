@@ -56,7 +56,7 @@ def get_response_entity(req):
         avg += stats.count
 
     avg = avg / (1 if len(entities) == 0 else len(entities))
-    return Entity(avg, min, max, entities)
+    return Entity(req.context, avg, min, max, entities)
 
 def get_lookup_map(context):
     if (context == 'world'):
