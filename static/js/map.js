@@ -151,7 +151,7 @@ $(document).ready(function () {
                     resized[current] = true;
                 }
 
-                colorScale = d3.scale.linear().domain([data.min, data.median, data.max]).range(["red", "yellow", "green"]);
+                colorScale = d3.scale.log().domain([data.min, data.median, data.max]).range(["red", "yellow", "green"]);
                 colors = {};
                 Object.keys(data.values).map(function (key) {
                     colors[key] = colorScale(data.values[key].count);
