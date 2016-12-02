@@ -16,7 +16,6 @@ function getYearList(onDone) {
         url: "/years",
         type: "GET",
         accept: 'application/json',
-        async: false,
         success: onDone,
         error: function (jqXHR, status, error) { $("#error").html("Error In fetching year list! : " + error); }
     });
