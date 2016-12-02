@@ -4,7 +4,7 @@ $(document).ready(function () {
     var containers = [$('#virginia'), $('#usa'), $('#world')];
     var maps = [setupVirginia(containers[0]), setupUSA(containers[1]), setupWorld(containers[2])];
     var contexts = { 'virginia': 0, 'usa': 1, 'world': 2 };
-    var resized = [true, false, false];
+    var resized = [true, true, true];
     var changingMap = false;
 
     $map.on('mousewheel', function (e) {
@@ -78,7 +78,11 @@ $(document).ready(function () {
             element: $elem[0],
             geographyConfig: {
                 highlightFillColor: '96BCE2',
-                highlightBorderColor: '#357EC7'
+                highlightBorderColor: '#357EC7',
+                popupTemplate: function(geography, data) {
+                    return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong>' +
+                        (data && data.count ? '<br />Count: ' + data.count : '') + '</div>';
+                }
             },
             fills: {
                 defaultFill: '#DCDCDC'
@@ -104,7 +108,11 @@ $(document).ready(function () {
             height: $elem.height() - 170,
             geographyConfig: {
                 highlightFillColor: '96BCE2',
-                highlightBorderColor: '#357EC7'
+                highlightBorderColor: '#357EC7',
+                popupTemplate: function(geography, data) {
+                    return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong>' +
+                        (data && data.count ? '<br />Count: ' + data.count : '') + '</div>';
+                }
             },
             fills: {
                 defaultFill: '#DCDCDC'
@@ -121,7 +129,11 @@ $(document).ready(function () {
             height: $elem.height() - 170,
             geographyConfig: {
                 highlightFillColor: '96BCE2',
-                highlightBorderColor: '#357EC7'
+                highlightBorderColor: '#357EC7',
+                popupTemplate: function(geography, data) {
+                    return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong>' +
+                        (data && data.count ? '<br />Count: ' + data.count : '') + '</div>';
+                }
             },
             fills: {
                 defaultFill: '#DCDCDC'
@@ -135,28 +147,20 @@ $(document).ready(function () {
         for (var context in contexts) {
             request.context = context;
             submitRequest(function (data) {
-                var labels, colors, colorScale;
+                var properties, colorScale;
                 var current = contexts[data.context];
                 if (!('context' in data) || Object.keys(data).length == 0)
                     return;
 
-                // labels = {};
-                // Object.keys(data.values).map(function (key) {
-                //     labels[key] = data.values[key].count;
-                // });
-                // maps[current].labels({'customLabelText': labels});
-
-                if (!resized[current]) {
-                    maps[selected].resize();
-                    resized[current] = true;
-                }
-
                 colorScale = d3.scale.log().domain([data.min, data.median, data.max]).range(["red", "yellow", "green"]);
-                colors = {};
+                properties = {};
                 Object.keys(data.values).map(function (key) {
-                    colors[key] = colorScale(data.values[key].count);
+                    properties[key] = {
+                        'color': colorScale(data.values[key].count),
+                        'count': data.values[key].count
+                    };
                 });
-                maps[current].updateChoropleth(colors);
+                maps[current].updateChoropleth(properties);
             });
         }
     }
