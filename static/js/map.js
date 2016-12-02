@@ -133,23 +133,23 @@ $(document).ready(function () {
 
     function updateMaps() {
         for (var context in contexts) {
-            request.context = key;
+            request.context = context;
             submitRequest(function (data) {
                 var labels, colors, colorScale;
                 var current = contexts[data.context];
                 if (!('context' in data) || Object.keys(data).length == 0)
                     return;
 
-                labels = data.values;
-                Object.keys(labels).map(function (key) {
-                    labels[key] = labels[key].count;
+                labels = {};
+                Object.keys(data.values).map(function (key) {
+                    labels[key] = data.values[key].count;
                 });
                 maps[current].labels({'customLabelText': labels});
 
                 colorScale = d3.scale.linear().domain([data.min, data.avg, data.max]).range(["red", "yellow", "green"]);
-                colors = data.values;
-                Object.keys(colors).map(function (key) {
-                    colors[key] = colorScale(colors[key].count);
+                colors = {};
+                Object.keys(data.values).map(function (key) {
+                    colors[key] = colorScale(data.values[key].count);
                 });
                 maps[current].updateChoropleth(colors);
             });

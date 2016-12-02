@@ -83,8 +83,9 @@ function submitRequest(onSuccess) {
         url: "/data",
         type: "POST",
         cache: false,
-        accept: 'application/json',
-        data : encodeURI(JSON.stringify(request)),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data : JSON.stringify(request),
         processData: false,
         success: onSuccess,
         error: function (jqXHR, status, error) {

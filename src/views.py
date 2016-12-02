@@ -1,4 +1,4 @@
-import os, urllib
+import os
 
 from flask import send_from_directory, request
 from flask.templating import render_template
@@ -26,7 +26,7 @@ def test():
 
 @app.route('/data', methods=['POST'])
 def data():
-    rb = urllib.parse.unquote(request.data.decode('utf8'))
+    rb = request.data.decode('utf8')
     entity = get_response_entity(JsonRequest(rb))
     print(JsonResponse(entity).json)
     return JsonResponse(entity).json
