@@ -4,7 +4,7 @@ $(document).ready(function () {
     var containers = [$('#virginia'), $('#usa'), $('#world')];
     var maps = [setupVirginia(containers[0]), setupUSA(containers[1]), setupWorld(containers[2])];
     var contexts = { 'virginia': 0, 'usa': 1, 'world': 2 };
-    var resized = [false, false, false];
+    var resized = [true, false, false];
     var changingMap = false;
 
     $map.on('mousewheel', function (e) {
@@ -151,7 +151,7 @@ $(document).ready(function () {
                     resized[current] = true;
                 }
 
-                colorScale = d3.scale.linear().domain([data.min, data.avg, data.max]).range(["red", "yellow", "green"]);
+                colorScale = d3.scale.linear().domain([data.min, data.median, data.max]).range(["red", "yellow", "green"]);
                 colors = {};
                 Object.keys(data.values).map(function (key) {
                     colors[key] = colorScale(data.values[key].count);
