@@ -32,7 +32,10 @@
         highlightFillColor: '#FC8D59',
         highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
         highlightBorderWidth: 2,
-        highlightBorderOpacity: 1
+        highlightBorderOpacity: 1,
+        highlightClickHandler: function(geography, data) {
+          // do nothing
+        }
     },
     projectionConfig: {
       rotation: [97, 0]
@@ -172,7 +175,7 @@
   function addStyleBlock() {
     if ( d3.select('.datamaps-style-block').empty() ) {
       d3.select('head').append('style').attr('class', 'datamaps-style-block')
-      .html('.datamap path.datamaps-graticule { fill: none; stroke: #777; stroke-width: 0.5px; stroke-opacity: .5; pointer-events: none; } .datamap .labels {pointer-events: none;} .datamap path:not(.datamaps-arc), .datamap circle, .datamap line {stroke: #FFFFFF; vector-effect: non-scaling-stroke; stroke-width: 1px;} .datamaps-legend dt, .datamaps-legend dd { float: left; margin: 0 3px 0 0;} .datamaps-legend dd {width: 20px; margin-right: 6px; border-radius: 3px;} .datamaps-legend {padding-bottom: 20px; z-index: 1001; position: absolute; left: 4px; font-size: 12px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;} .datamaps-hoverover {display: none; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; } .hoverinfo {padding: 4px; border-radius: 1px; background-color: #FFF; box-shadow: 1px 1px 5px #CCC; font-size: 12px; border: 1px solid #CCC; } .hoverinfo hr {border:1px dotted #CCC; }');
+      .html('.datamap path.datamaps-graticule { fill: none; stroke: #777; stroke-width: 0.5px; stroke-opacity: .5; pointer-events: none; } .datamap .labels {pointer-events: none;} .datamap path:not(.datamaps-arc), .datamap circle, .datamap line {stroke: #FFFFFF; vector-effect: non-scaling-stroke; stroke-width: 1px;} .datamaps-legend dt, .datamaps-legend dd { float: left; margin: 0 3px 0 0;} .datamaps-legend dd {width: 20px; margin-right: 6px; border-radius: 3px;} .datamaps-legend {padding-bottom: 20px; z-index: 1001; position: absolute; left: 4px; font-size: 12px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;} .datamaps-hoverover {display: none; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; } .datamaps-clickable { cursor: pointer; } .hoverinfo {padding: 4px; border-radius: 1px; background-color: #FFF; box-shadow: 1px 1px 5px #CCC; font-size: 12px; border: 1px solid #CCC; } .hoverinfo hr {border:1px dotted #CCC; }');
     }
   }
 
@@ -257,6 +260,7 @@
               .style('stroke-width', val(datum.highlightBorderWidth, options.highlightBorderWidth, datum))
               .style('stroke-opacity', val(datum.highlightBorderOpacity, options.highlightBorderOpacity, datum))
               .style('fill-opacity', val(datum.highlightFillOpacity, options.highlightFillOpacity, datum))
+              .classed('datamaps-clickable', Object.keys(datum).length > 0)
               .attr('data-previousAttributes', JSON.stringify(previousAttributes));
 
             // As per discussion on https://github.com/markmarkoh/datamaps/issues/19
@@ -278,9 +282,21 @@
             for ( var attr in previousAttributes ) {
               $this.style(attr, previousAttributes[attr]);
             }
+            $this.classed('.datamaps-clickable', false);
           }
           $this.on('mousemove', null);
           d3.selectAll('.datamaps-hoverover').style('display', 'none');
+        })
+        .on('click', function(d) {
+          var $this = d3.select(this);
+          if (!$this.classed('datamaps-clickable'))
+              return;
+
+          if (options.highlightClickHandler) {
+            var data = JSON.parse($this.attr('data-info'));
+
+            options.highlightClickHandler(d, data);
+          }
         });
     }
 
