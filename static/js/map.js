@@ -5,6 +5,7 @@ $(document).ready(function () {
     var maps = [setupVirginia(containers[0]), setupUSA(containers[1]), setupWorld(containers[2])];
     var contexts = { 'virginia': 0, 'usa': 1, 'world': 2 };
     var resized = [true, true, true];
+    var lastSubmittedRequest = null;
     var changingMap = false;
 
     $map.on('mousewheel', function (e) {
@@ -82,6 +83,11 @@ $(document).ready(function () {
                 popupTemplate: function(geography, data) {
                     return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong>' +
                         (data && data.count ? '<br />Count: ' + data.count : '') + '</div>';
+                },
+                highlightClickHandler: function (geography, data) {
+                    console.log(geography.properties.name);
+                    console.log(data);
+                    console.log(lastSubmittedRequest);
                 }
             },
             fills: {
@@ -144,6 +150,7 @@ $(document).ready(function () {
     }
 
     function updateMaps() {
+        lastSubmittedRequest = $.extend({}, request);
         for (var context in contexts) {
             request.context = context;
             submitRequest(function (data) {
