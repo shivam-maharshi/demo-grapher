@@ -398,7 +398,7 @@ COUNTY_MAPPING = {
 'Carroll':'VA60',
 'Danville':'VA130',
 # Additional County
-'Clifton Forge':'CLFO',
+'Clifton Forge':'VA11',
 'Unknown County':'UNKW',
 'VA Unknown':'VAUN'
 }
