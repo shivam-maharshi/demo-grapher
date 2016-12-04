@@ -154,21 +154,25 @@ function selectRace(vis, d, r, v) {
   if (index > -1) {
 	if (request.race.length > 1) {
       request.race.splice(index, 1);
-      drawSelectionArc(vis, r, d.startAngle, d.endAngle, "white");			// Outer boundary
+      drawSelectionArc(vis, r, d.startAngle, d.endAngle, "white");				// Outer boundary
 	}
   } else {
 	request.race.push(v);
-	drawSelectionArc(vis, r, d.startAngle, d.endAngle, "#357EC7");			// Outer boundary
+	drawSelectionArc(vis, r, d.startAngle, d.endAngle, "#357EC7");				// Outer boundary
   }
   console.log(request.race);
 }
 
 function selectAcad(e) {
-  if(e.checked) {
+  if (e.checked) {
 	value = acadChildren[e.value];
 	insertIfAbsent(request.acad, value);
 	for (i=0; i<value.length; i++) {
 	  checkBox('al'+value[i]);
+	}
+	checkApplicableAcadParent();
+	if (request.acad.length == 14) {
+	  checkBox('al0');															// Select All-Students since all boxes are selected.
 	}
   } else {
 	if (isValidAcadDeselection(e)) {											// Must validate deselection to avoid empty request acad array.
@@ -198,17 +202,11 @@ function isValidAcadDeselection(e) {
   return validationArray.length != 0;
 }
 
-function getUpdatedArray() {
-	
-}
-
 function uncheckBox(id) {
-  console.log(id);
   $('#'+id).prop("checked", false);
 }
 
 function checkBox(id) {
-  console.log(id);
   $('#'+id).prop("checked", true);
 }
 
@@ -234,6 +232,25 @@ function removeIfPresent(array, value) {
     if(index > -1) {
       array.splice(index, 1);
     }
+  }
+}
+
+function checkApplicableAcadParent() {
+  for (i=acadChildren.length -1; i>0; i--) {
+	child = acadChildren[i];
+	allChildPresent = true;
+	for (j=child.length-1; j>0; j--) {
+	  if (jQuery.inArray(child[j], request.acad) < 0) {
+		allChildPresent = false;
+		break;
+	  }
+	}
+	if (allChildPresent && child.length > 1) {
+	  if(jQuery.inArray(child[0], request.acad) < 0) {
+		request.acad.push(child[0]);
+	  }
+	  checkBox("al"+child[0]);
+	}
   }
 }
 

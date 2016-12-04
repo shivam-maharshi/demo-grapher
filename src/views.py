@@ -124,8 +124,14 @@ def prepare_data_query(req):
         else:
             if 6 in req.acad:
                 clause.append('"Entering_freshman"=\'Y\'')
+                if 7 in req.acad:
+                    clause.append('"Entering_transfer"=\'Y\'')
+                elif 8 in req.acad:
+                    clause.append('("Undergraduate"=\'Y\' AND "Entering_transfer"=\'N\')')
             elif 7 in req.acad:
                 clause.append('"Entering_transfer"=\'Y\'')
+                if 8 in req.acad:
+                    clause.append('("Undergraduate"=\'Y\' AND "Entering_freshman"=\'N\')')
             elif 8 in req.acad:
                 clause.append('("Undergraduate"=\'Y\' AND "Entering_freshman"=\'N\' AND "Entering_transfer"=\'N\')')
 
@@ -138,10 +144,13 @@ def prepare_data_query(req):
                 clause.append('("DVM"=\'Y\' AND "Entering_DVM"=\'N\')')
         
         s += ' AND (' + clause[0]
-        for c in clause:
-            s += ' OR ' + c
+        i = 1
+        while i < len(clause):
+            s += ' OR ' + clause[i]
+            i += 1
         s += ')'
-
+    print(req.acad)
+    print(s)
     return s
 
 @app.route('/static/<path:path>')
