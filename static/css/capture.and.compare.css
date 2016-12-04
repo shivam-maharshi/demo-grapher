@@ -1,0 +1,22 @@
+body, html {
+    height: 100%;
+}
+
+#capture-and-compare {
+    height: 100%;
+    font: 12px sans-serif;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.bar {
+    fill: steelblue;
+}
+
+.x.axis path {
+    display: none;
+}

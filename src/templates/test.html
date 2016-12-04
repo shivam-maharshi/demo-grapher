@@ -5,23 +5,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-    <style>
-        .axis path,
-        .axis line {
-            fill: none;
-            stroke: #000;
-            shape-rendering: crispEdges;
-        }
-
-        .bar {
-            fill: steelblue;
-        }
-
-        .x.axis path {
-            display: none;
-        }
-
-    </style>
+    <link rel="stylesheet" href="/static/css/capture.and.compare.css" />
 {% endblock %}
 
 {% block content %}
@@ -29,6 +13,14 @@
         <div id="error" class="row"></div>
         <div class="row">
             <div id="capture-and-compare" class="col-md-9">
+                <div class="row">
+                    <div id="selection" class="col-md-4"></div>
+                    <div id="colleges" class="col-md-8"></div>
+                </div>
+                <div class="row">
+                    <div id="gender" class="col-md-4"></div>
+                    <div id="ethnicity" class="col-md-8"></div>
+                </div>
             </div>
             <div id="filter" class="col-md-3">
                 <label for="di" title="Select Colleges & Departments" style="padding-bottom:5px;">Colleges &
