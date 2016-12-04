@@ -58,7 +58,7 @@ def get_response_entity(req):
         avg += stats.count
     avg = avg / (1 if len(entities) == 0 else len(entities))
     counts.sort()
-    median = counts[int(len(counts)/2)]
+    median = 0 if len(counts)==0 else (counts[int(len(counts)/2)] if (len(counts)%2==1) else (counts[int(len(counts)/2) -1] + counts[int(len(counts)/2)])/2)  
     return Entity(req.context, avg, median, min, max, entities)
 
 def get_lookup_map(context):
