@@ -3,11 +3,11 @@ var request = {
   "college" : [1,2,3,5,6,7,8,9,10],
   "gender" : [1,2,3],
   "race" : [1,2,3,4,5,6,7,8,9],
-  "acad" : [1,2,3,4,5,6,7,8,9,10]
+  "acad" : [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
 };
 
-var acadChildren = [[1,2,3,4,5,6,7,8,9,10],[1,5,9,6,10],[2,7],[3,8],[4],[5,9],[6,10],[7],[8],[9],[10]];
-var acadParent = [[0],[0],[0],[0],[0],[0,1],[0,1],[0],[0],[0],[0]];
+var acadChildren = [[1,2,3,4,5,6,7,8,9,10,11,12,13,14],[1,4,5,11,12,13,14],[2,6,7,8],[3,9,10],[4,11,12],[5,13,14],[6],[7],[8],[9],[10],[11],[12],[13],[14]];
+var acadParent = [[0],[0,1],[0,2],[0,3],[0,1],[0,1],[0,2],[0,2],[0,2],[0,3],[0,3],[0,1,4],[0,1,4],[0,1,5],[0,1,5]];
 var collegeChildren = [[1,2,3,5,6,7,8,9,10],[1],[2],[3],[],[5],[6],[7],[8],[9],[10]];
 
 function getYearList(onDone) {
@@ -164,16 +164,52 @@ function selectRace(vis, d, r, v) {
 }
 
 function selectAcad(e) {
-  value = acadChildren[e.value];
   if(e.checked) {
+	value = acadChildren[e.value];
 	insertIfAbsent(request.acad, value);
+	for (i=0; i<value.length; i++) {
+	  checkBox('al'+value[i]);
+	}
   } else {
-	removeIfPresent(request.acad, value);
-  }
-  for (i=0; i<value.length; i++) {
-	$('#al'+value[i]).prop("checked", e.checked);
+	if (isValidAcadDeselection(e)) {											// Must validate deselection to avoid empty request acad array.
+	  value = acadChildren[e.value];
+	  removeIfPresent(request.acad, value);
+	  for (i=0; i<value.length; i++) {
+	    uncheckBox('al'+value[i]);
+	  }
+	  value = acadParent[e.value];
+	  removeIfPresent(request.acad, value);
+	  for (i=0; i<value.length; i++) {
+	    uncheckBox('al'+value[i]);
+	  }
+	} else {
+	  checkBox(e.id);
+	}
   }
   console.log(request.acad);
+}
+
+function isValidAcadDeselection(e) {
+  validationArray = request.acad.slice();										// Creates a new copy of the array.
+  value = acadChildren[e.value];
+  removeIfPresent(validationArray, value);
+  value = acadParent[e.value];
+  removeIfPresent(validationArray, value);
+  return validationArray.length != 0;
+}
+
+function getUpdatedArray() {
+	
+}
+
+function uncheckBox(id) {
+  console.log(id);
+  $('#'+id).prop("checked", false);
+}
+
+function checkBox(id) {
+  console.log(id);
+  $('#'+id).prop("checked", true);
 }
 
 function checkAllAcad() {

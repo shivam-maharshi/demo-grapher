@@ -98,6 +98,50 @@ def prepare_data_query(req):
             s += ' OR "Ethnicity_code"=' + str(req.race[i])
         s += ')'
         
+    if len(req.acad) is not 14:
+        clause = []
+        if 1 in req.acad:
+            clause.append('"Graduate"=\'Y\'')
+        else:
+            if 4 in req.acad:
+                clause.append('"Masters"=\'Y\'')
+            else:
+                if 11 in req.acad:
+                    clause.append('"Entering_masters"=\'Y\'')
+                elif 12 in req.acad:
+                    clause.append('("Masters"=\'Y\' AND "Entering_masters"=\'N\')')
+                
+            if 5 in req.acad:
+                clause.append('"Doctoral"=\'Y\'')
+            else:
+                if 13 in req.acad:
+                    clause.append('"Entering_doctoral"=\'Y\'')
+                elif 14 in req.acad:
+                    clause.append('("Doctoral"=\'Y\' AND "Entering_doctoral"=\'N\')')
+
+        if 2 in req.acad:
+            clause.append('"Undergraduate"=\'Y\'')
+        else:
+            if 6 in req.acad:
+                clause.append('"Entering_freshman"=\'Y\'')
+            elif 7 in req.acad:
+                clause.append('"Entering_transfer"=\'Y\'')
+            elif 8 in req.acad:
+                clause.append('("Undergraduate"=\'Y\' AND "Entering_freshman"=\'N\' AND "Entering_transfer"=\'N\')')
+
+        if 3 in req.acad:
+            clause.append('"DVM"=\'Y\'')
+        else:
+            if 9 in req.acad:
+                clause.append('"Entering_DVM"=\'Y\'')
+            elif 10 in req.acad:
+                clause.append('("DVM"=\'Y\' AND "Entering_DVM"=\'N\')')
+        
+        s += ' AND (' + clause[0]
+        for c in clause:
+            s += ' OR ' + c
+        s += ')'
+
     return s
 
 @app.route('/static/<path:path>')
