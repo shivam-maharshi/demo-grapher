@@ -266,7 +266,7 @@ function displayChart() {
           {"id":7, "label":"MultiRace", "value":1},
           {"id":5, "label":"Hawai/Pacific", "value":1},
           {"id":9, "label":"NR Alien", "value":1},
-          {"id":8, "label":"NA", "value":1}];
+          {"id":8, "label":"N/A", "value":1}];
 
   var vis = d3.select("#chart")
               .append("svg:svg")									// Create the SVG element inside the <body>

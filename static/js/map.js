@@ -167,7 +167,7 @@ $(document).ready(function () {
                         'count': data.values[key].count
                     };
                 });
-                maps[current].updateChoropleth(properties);
+                maps[current].updateChoropleth(properties, { reset: true });
             });
         }
     }
