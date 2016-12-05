@@ -12565,6 +12565,7 @@
 
     // When options.reset = true, reset all the fill colors to the defaultFill and kill all data-info
     if ( options && options.reset === true ) {
+      this.options.data = {};
       svg.selectAll('.datamaps-subunit')
         .attr('data-info', function() {
            return "{}"
