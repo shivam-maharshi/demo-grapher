@@ -179,6 +179,7 @@ $(document).ready(function () {
         lastSubmittedRequest = $.extend({}, request);
         for (var context in contexts) {
             request.context = context;
+            containers[contexts[context]].css('pointerEvents', 'none');
             submitRequest(function (data) {
                 var properties, colorScale;
                 var current = contexts[data.context];
@@ -197,6 +198,7 @@ $(document).ready(function () {
                     };
                 });
                 maps[current].updateChoropleth(properties, { reset: true });
+                containers[current].css('pointerEvents', '');
                 if (callback && $.isFunction(callback))
                     callback(data);
             });

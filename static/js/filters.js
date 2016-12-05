@@ -88,7 +88,9 @@ function submitRequest(onSuccess) {
         dataType: "json",
         data : JSON.stringify(request),
         processData: false,
-        success: onSuccess,
+        success: function (data) {
+            if (onSuccess && $.isFunction(onSuccess)) onSuccess(data);
+        },
         error: function (jqXHR, status, error) {
             $("#error").html("Error In submitting request! : " + error);
         }
