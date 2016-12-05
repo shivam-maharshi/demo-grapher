@@ -89,14 +89,9 @@ $(document).ready(function () {
         $container = $('#capture-and-compare');
     }
 
-    function extractClassName(elem) {
-        var name = elem.className.split(/\s+/).filter(function (c) { return c.startsWith('box'); });
-        return name.length > 0 ? name[0] : '';
-    }
-
     function updateCaptureAndCompare(data) {
         var uuid = generateUUID(data.label, data.filters);
-        if (uuid in selections)
+        if (uuid in selections || Object.keys(selections).length >= defaultConfiguration.maxSelected)
             return;
         addSelection(uuid, data);
         for (var i = 0; i < barTypes.length; i++) {
@@ -113,15 +108,16 @@ $(document).ready(function () {
     }
 
     function generateUUID(label, filters) {
+        var masks = { 'race': 'ethnicity' };
         var uuid = label + "[";
         for (var prop in filters) {
             if (filters.hasOwnProperty(prop)) {
                 if ($.isArray(filters[prop]))
-                    uuid += prop + "A[" + filters[prop].sort().toString() + "]";
+                    uuid += (prop in masks ? masks[prop] : prop) + "A[" + filters[prop].sort().toString() + "]";
                 else if ($.isPlainObject(filters[prop]))
-                    uuid += prop + "O[" + Object.keys(filters[prop]).sort().toString() + "]";
+                    uuid += (prop in masks ? masks[prop] : prop) + "O[" + Object.keys(filters[prop]).sort().toString() + "]";
                 else
-                    uuid += prop + "[" + filters[prop] + "]";
+                    uuid += (prop in masks ? masks[prop] : prop) + "[" + filters[prop] + "]";
             }
         }
         return uuid + "]";
@@ -243,6 +239,9 @@ $(document).ready(function () {
                     });
 
                 rects.exit()
+                    .on("mouseover", null)
+                    .on("mouseout", null)
+                    .on("mousemove", null)
                     .transition()
                     .duration(300)
                     .attr("y", self.y(0))
@@ -348,24 +347,10 @@ $(document).ready(function () {
 
     setupEnvironment();
 
-    setTimeout(function () {
-        updateCaptureAndCompare(testData);
-        setTimeout(function () {
-            updateCaptureAndCompare(testData2);
-            setTimeout(function () {
-                updateCaptureAndCompare(testData3);
-                setTimeout(function () {
-                    updateCaptureAndCompare(testData4);
-                    setTimeout(function () {
-                        updateCaptureAndCompare(testData2);
-                    }, 10000);
-                }, 2000);
-            }, 2000);
-        }, 2000);
-    }, 2000);
+    window.updateCaptureAndCompare = updateCaptureAndCompare;
 });
 
-var testData = {
+var testData1 = {
     "label": "Colorado",
     "college": {
         "1": 27,
@@ -400,7 +385,7 @@ var testData = {
         "2": 241,
         "3": 3
     },
-    "filters": {}
+    "filters": { 'year': 2016 }
 };
 
 var testData2 = {
@@ -438,7 +423,7 @@ var testData2 = {
         "2":33,
         "3":0
     },
-    "filters": {}
+    "filters": { 'year': 2016 }
 };
 
 var testData3 = {
@@ -514,7 +499,7 @@ var testData4 = {
         "2":33,
         "3":0
     },
-    "filters": {}
+    "filters": { 'year': 2016 }
 };
 
 

@@ -5,11 +5,13 @@
     <script src="/static/js/ion.rangeSlider.min.js"></script>
     <script type="text/javascript" src="/static/js/filters.js"></script>
     <script type="text/javascript" src="/static/js/datamaps.all.js"></script>
+    <script type="text/javascript" src="/static/js/capture.and.compare.js"></script>
     <script type="text/javascript" src="/static/js/map.js"></script>
 {% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="/static/css/filters.css">
+    <link rel="stylesheet" href="/static/css/capture.and.compare.css">
     <link rel="stylesheet" href="/static/css/map.css">
     <link rel="stylesheet" href="/static/css/ion.rangeSlider.css">
     <link rel="stylesheet" href="/static/css/ion.rangeSlider.skinHTML5.css">
@@ -44,6 +46,19 @@
                 <div id="sc">
                     <label for="slider" title="Select Year" style="padding-bottom: 5px;">Year</label>
                     <div id="slider"></div>
+                </div>
+                <hr />
+                <div id="capture-and-compare">
+                    <div class="row">
+                        <div id="selection" class="col-md-4">
+                            <h4>Capture & Compare</h4>
+                        </div>
+                        <div id="colleges" class="col-md-8"></div>
+                    </div>
+                    <div class="row">
+                        <div id="gender" class="col-md-4"></div>
+                        <div id="ethnicity" class="col-md-8"></div>
+                    </div>
                 </div>
             </div>
             <div id="filter" class="col-md-3">
@@ -83,21 +98,21 @@
                         <label><input id="al0" type="checkbox" value="0" onClick='selectAcad(this)'>All Students</label><br>
                         <label style="margin-left:20;"><input id="al1" type="checkbox" value="1"
                                                               onClick='selectAcad(this)'>All Graduates</label><br>
-                                                              
+
                         <label style="margin-left:40;"><input id="al4" type="checkbox" value="4"
                                                               onClick='selectAcad(this)'>All Masters</label><br>
                         <label style="margin-left:60;"><input id="al11" type="checkbox" value="11"
                                                               onClick='selectAcad(this)'>Entering Masters</label><br>
                         <label style="margin-left:60;"><input id="al12" type="checkbox" value="12"
                                                               onClick='selectAcad(this)'>Pursuing Masters</label><br>
-                                                              
+
                         <label style="margin-left:40;"><input id="al5" type="checkbox" value="5"
                                                               onClick='selectAcad(this)'>All PhDs</label><br>
                         <label style="margin-left:60;"><input id="al13" type="checkbox" value="13"
                                                               onClick='selectAcad(this)'>Entering Doctoral</label><br>
 						<label style="margin-left:60;"><input id="al14" type="checkbox" value="14"
                                                               onClick='selectAcad(this)'>Pursuing Doctoral</label><br>
-                                                              
+
                         <label style="margin-left:20;"><input id="al2" type="checkbox" value="2"
                                                               onClick='selectAcad(this)'>All Undergraduates</label><br>
                         <label style="margin-left:40;"><input id="al6" type="checkbox" value="6"
@@ -106,14 +121,14 @@
                                                               onClick='selectAcad(this)'>Entering Transfer</label><br>
                         <label style="margin-left:40;"><input id="al8" type="checkbox" value="8"
                                                               onClick='selectAcad(this)'>Pursuing Undergraduates</label><br>
-                                                              
+
                         <label style="margin-left:20;"><input id="al3" type="checkbox" value="3"
                                                               onClick='selectAcad(this)'>All DVM</label><br>
                         <label style="margin-left:40;"><input id="al9" type="checkbox" value="9"
                                                               onClick='selectAcad(this)'>Entering DVM</label><br>
                         <label style="margin-left:40;"><input id="al10" type="checkbox" value="10"
                                                               onClick='selectAcad(this)'>Pursuing DVM</label><br>
-                        
+
                     </div>
                 </div>
                 <button id="submit" type="button" class="btn btn-primary">

@@ -72,6 +72,13 @@ $(document).ready(function () {
         return dfd.promise();
     }
 
+    function updateSelection(geography, data) {
+        var selection = { label: geography.properties.name };
+        selection = $.extend(selection, data);
+        selection.filters = $.extend({}, lastSubmittedRequest);
+        updateCaptureAndCompare(selection);
+    }
+
     function setupVirginia($elem) {
         return new Datamap({
             width: 1390,
@@ -84,11 +91,7 @@ $(document).ready(function () {
                     return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong>' +
                         (data && data.count ? '<br />Count: ' + data.count : '') + '</div>';
                 },
-                highlightClickHandler: function (geography, data) {
-                    console.log(geography.properties.name);
-                    console.log(data);
-                    console.log(lastSubmittedRequest);
-                }
+                highlightClickHandler: updateSelection
             },
             fills: {
                 defaultFill: '#DCDCDC'
@@ -118,7 +121,8 @@ $(document).ready(function () {
                 popupTemplate: function(geography, data) {
                     return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong>' +
                         (data && data.count ? '<br />Count: ' + data.count : '') + '</div>';
-                }
+                },
+                highlightClickHandler: updateSelection
             },
             fills: {
                 defaultFill: '#DCDCDC'
@@ -139,7 +143,8 @@ $(document).ready(function () {
                 popupTemplate: function(geography, data) {
                     return '<div class="hoverinfo"><strong>' + geography.properties.name + '</strong>' +
                         (data && data.count ? '<br />Count: ' + data.count : '') + '</div>';
-                }
+                },
+                highlightClickHandler: updateSelection
             },
             fills: {
                 defaultFill: '#DCDCDC'
@@ -164,7 +169,10 @@ $(document).ready(function () {
                 Object.keys(data.values).map(function (key) {
                     properties[key] = {
                         'color': colorScale(data.values[key].count),
-                        'count': data.values[key].count
+                        'count': data.values[key].count,
+                        'gender': data.values[key].gender,
+                        'ethnicity': data.values[key].race,
+                        'college': data.values[key].college
                     };
                 });
                 maps[current].updateChoropleth(properties, { reset: true });
@@ -172,67 +180,5 @@ $(document).ready(function () {
         }
     }
 
-    window.document.updateMaps = updateMaps;
+    window.updateMaps = updateMaps;
 });
-
-var testData = [
-    {
-        "avg": 7,
-        "min": 1,
-        "max": 9,
-        "values": {
-            "VA1": 1,
-            "VA2": 4,
-            "VA3": 9,
-            "VA4": 7,
-            "VA5": 8,
-            "VA6": 1,
-            "VA7": 7,
-            "VA8": 2,
-            "VA9": 5,
-            "VA10": 6,
-            "VA11": 8,
-            "VA12": 3,
-            "VA13": 5,
-            "VA14": 3,
-            "VA15": 9,
-            "VA16": 3,
-            "VA17": 7,
-            "VA18": 6,
-            "VA19": 9,
-            "VA20": 4,
-            "VA21": 7,
-            "VA22": 3,
-            "VA23": 5,
-            "VA24": 9,
-            "VA25": 1,
-            "VA26": 4,
-            "VA27": 7,
-            "VA28": 7,
-            "VA29": 1,
-            "VA30": 6,
-            "VA31": 2,
-            "VA32": 6,
-            "VA33": 6,
-            "VA34": 7,
-            "VA35": 6,
-            "VA36": 3,
-            "VA37": 2,
-            "VA38": 1,
-            "VA39": 4,
-            "VA40": 1,
-            "VA41": 5,
-            "VA42": 8,
-            "VA43": 3,
-            "VA44": 5,
-            "VA45": 1,
-            "VA46": 7,
-            "VA47": 9,
-            "VA48": 9,
-            "VA49": 8,
-            "VA50": 5
-        }
-    },
-    {},
-    {}
-];
