@@ -6,6 +6,7 @@ body, html {
     height: 100%;
     font: 12px sans-serif;
 }
+
 .axis path,
 .axis line {
     fill: none;
@@ -19,4 +20,55 @@ body, html {
 
 .x.axis path {
     display: none;
+}
+
+.alert {
+    padding: 10px 10px;
+    color: #fefefe;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.alert p {
+    margin: 0;
+}
+
+.alert .toggle-alert {
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    display: block;
+    text-indent: -10000px;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1), 1px 1px 1px rgba(255, 255, 255, 0.1);
+    -moz-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1), 1px 1px 1px rgba(255, 255, 255, 0.1);
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1), 1px 1px 1px rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.08) url(/static/img/close-button.png) no-repeat 6px 6px;
+}
+
+.box2 {
+    background: #ff9900;
+}
+
+.box0 {
+    background: #3366cc;
+}
+
+.box1 {
+    background: #dc3912;
+}
+
+.box3 {
+    background: #109618;
+}
+
+.selection-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.selection-gender, .selection-academic, .selection-college, .selection-ethnicity {
+    font-size: 10px;
 }

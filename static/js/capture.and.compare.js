@@ -106,7 +106,8 @@ $(document).ready(function () {
 
         BarChart.prototype = {
             addDatum: function (data) {
-                if (this.selectedIds.length >= this.maxSelected)
+                if (this.selectedIds.length >= this.maxSelected ||
+                    this.selectedIds.indexOf(data.id) > -1)
                     return;
                 this.selectedIds.push(data.id);
                 for (var i = 0; i < this.orderedSelection.length; i++) {
@@ -121,7 +122,7 @@ $(document).ready(function () {
             },
 
             removeDatum: function (data) {
-                if (this.selectedIds.length <= 0 || this.selectedIds.indexOf(data.id))
+                if (this.selectedIds.length <= 0)
                     return;
                 var index = this.selectedIds.indexOf(data.id);
                 if (index > -1) {
