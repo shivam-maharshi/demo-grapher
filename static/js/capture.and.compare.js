@@ -128,8 +128,8 @@ $(document).ready(function () {
             '<div class="selection-title">' + data.label + ' ' + data.filters.year + '</div>' +
             '<div class="selection-gender">' + (data.filters.gender ?
                 'Gender: ' + data.filters.gender.map(function (val) { return abbreviations.gender[val]; }).toString() : '') + '</div>' +
-            '<div class="selection-ethnicity">' + (data.filters.ethnicity ?
-                'Ethnicity: ' + data.filters.ethnicity.map(function (val) { return abbreviations.ethnicity[val]; }).toString() : '') + '</div>' +
+            '<div class="selection-ethnicity">' + (data.filters.race ?
+                'Ethnicity: ' + data.filters.race.map(function (val) { return abbreviations.ethnicity[val]; }).toString() : '') + '</div>' +
             '<div class="selection-college">' + (data.filters.college ?
                 'Colleges: ' + data.filters.college.map(function (val) { return abbreviations.college[val]; }).toString() : '') + '</div>' +
             '<div class="selection-academic">' + (data.filters.acad ?

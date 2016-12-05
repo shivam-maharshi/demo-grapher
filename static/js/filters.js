@@ -33,7 +33,7 @@ function setupYearSlider() {
             onFinish: function (data) {
                 console.log(data.from_value);
                 request["year"] = data.from_value;
-                window.document.updateMaps();
+                updateMaps();
             }
         });
     });
