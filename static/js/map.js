@@ -111,7 +111,7 @@ $(document).ready(function () {
     function setupUSA($elem) {
         return new Datamap({
             width: $elem.width(),
-            height: $elem.height() - 170,
+            height: $elem.parent().height() * 0.9,
             geographyConfig: {
                 highlightFillColor: '96BCE2',
                 highlightBorderColor: '#357EC7',
@@ -132,7 +132,7 @@ $(document).ready(function () {
     function setupWorld($elem) {
         return new Datamap({
             width: $elem.width(),
-            height: $elem.height() - 170,
+            height: $elem.parent().height() * 0.9,
             geographyConfig: {
                 highlightFillColor: '96BCE2',
                 highlightBorderColor: '#357EC7',
