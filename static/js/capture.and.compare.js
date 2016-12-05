@@ -62,6 +62,7 @@ $(document).ready(function () {
 
     var barTypes = [], barCharts = {}, selections = {};
     var $selection;
+    var $container;
 
     /*
      { label: 'Colorado', 'gender': { 'Male': 122, 'Female': 241, 'N/A': 3 }, 'filters': { } }
@@ -83,7 +84,9 @@ $(document).ready(function () {
             $parent.slideUp(300, function () {
                 $(this).remove();
             });
-        })
+        });
+
+        $container = $('#capture-and-compare');
     }
 
     function extractClassName(elem) {
@@ -251,7 +254,22 @@ $(document).ready(function () {
                     .append("rect")
                     .attr("class", "bar")
                     .attr("y", self.y(0))
-                    .attr("height", self.height - self.y(0));
+                    .attr("height", self.height - self.y(0))
+                    .on("mouseover", function (d) {
+                        d3.select(this).style("fill", "4B0082");
+                        self.tooltip.style('display', 'block');
+                    })
+                    .on("mouseout", function (d) {
+                        d3.select(this).style("fill", color(d.id));
+                        self.tooltip.style('display', 'none');
+                    })
+                    .on("mousemove", function (d) {
+                        var position = d3.mouse(self.svg[0][0].parentNode.parentNode);
+                        self.tooltip
+                            .style('top', (position[1] + 20) + "px")
+                            .html(d.value)
+                            .style('left', (position[0]) + "px")
+                    });
 
                 rects.transition().duration(300)
                     .attr("width", self.x1.rangeBand())
@@ -266,7 +284,7 @@ $(document).ready(function () {
                     })
                     .style("fill", function (d) {
                         return color(d.id);
-                    });
+                    })
             },
 
             _setup: function () {
@@ -294,7 +312,12 @@ $(document).ready(function () {
                     .orient("left")
                     .tickFormat(d3.format(".2s"));
 
-                this.svg = d3.select(this.configuration.container).append("svg")
+                this.tooltip = d3.select(this.configuration.container)
+                    .append("div")
+                    .attr("class", "charts-hoverover");
+
+                this.svg = d3.select(this.configuration.container)
+                    .append("svg")
                     .attr("width", this.width + margin.left + margin.right)
                     .attr("height", this.height + margin.top + margin.bottom)
                     .append("g")
@@ -304,11 +327,13 @@ $(document).ready(function () {
 
                 this.svg.append("g")
                     .attr("class", "x axis")
-                    .attr("transform", "translate(0," + this.height + ")");
+                    .attr("transform", "translate(0," + this.height + ")")
+                    .call(this.xAxis);
 
                 this.svg.append("g")
                     .attr("class", "y axis")
                     .append("text")
+                    .call(this.yAxis)
                     .attr("transform", "rotate(-90)")
                     .attr("y", 6)
                     .attr("dy", ".71em")
@@ -323,16 +348,18 @@ $(document).ready(function () {
 
     setupEnvironment();
 
-    updateCaptureAndCompare(testData);
     setTimeout(function () {
-        updateCaptureAndCompare(testData2);
+        updateCaptureAndCompare(testData);
         setTimeout(function () {
-            updateCaptureAndCompare(testData3);
+            updateCaptureAndCompare(testData2);
             setTimeout(function () {
-                updateCaptureAndCompare(testData4);
+                updateCaptureAndCompare(testData3);
                 setTimeout(function () {
-                    updateCaptureAndCompare(testData2);
-                }, 10000);
+                    updateCaptureAndCompare(testData4);
+                    setTimeout(function () {
+                        updateCaptureAndCompare(testData2);
+                    }, 10000);
+                }, 2000);
             }, 2000);
         }, 2000);
     }, 2000);

@@ -48,22 +48,6 @@ body, html {
     background: rgba(0, 0, 0, 0.08) url(/static/img/close-button.png) no-repeat 6px 6px;
 }
 
-.box2 {
-    background: #ff9900;
-}
-
-.box0 {
-    background: #3366cc;
-}
-
-.box1 {
-    background: #dc3912;
-}
-
-.box3 {
-    background: #109618;
-}
-
 .selection-title {
     font-size: 14px;
     font-weight: bold;
@@ -71,4 +55,17 @@ body, html {
 
 .selection-gender, .selection-academic, .selection-college, .selection-ethnicity {
     font-size: 10px;
+}
+
+.charts-hoverover {
+    display: none;
+    z-index: 100000;
+    position: absolute;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 4px;
+    border-radius: 1px;
+    background-color: #FFF;
+    box-shadow: 1px 1px 5px #CCC;
+    font-size: 12px;
+    border: 1px solid #CCC;
 }
