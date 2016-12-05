@@ -1,6 +1,6 @@
 #capture-and-compare {
     height: 100%;
-    font: 12px sans-serif;
+    font: .7vw sans-serif;
 }
 
 .axis path,
@@ -45,12 +45,12 @@
 }
 
 .selection-title {
-    font-size: 14px;
+    font-size: .7vw;
     font-weight: bold;
 }
 
 .selection-gender, .selection-academic, .selection-college, .selection-ethnicity {
-    font-size: 10px;
+    font-size: .55vw;
 }
 
 .charts-hoverover {
