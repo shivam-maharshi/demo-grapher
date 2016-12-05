@@ -11,6 +11,13 @@
     {% endblock %}
     {% block stylesheets %}
     {% endblock %}
+    <style>
+        h3 {
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    </style>
   </head>
   
   <body>
@@ -18,7 +25,7 @@
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
           <div class="panel-heading panel-title" style="text-align: center; background-color: #96BCE2;">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b style="font-weight: 600;">DemoGrapher</b></a>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><h3>DemoGrapher</h3></a>
           </div>
           <div id="collapse1" class="panel-collapse collapse">
             <div class="panel-body">DemoGrapher helps in efficiently visualizing students data segregated by demographics. The information can be

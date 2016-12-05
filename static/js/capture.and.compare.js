@@ -1,5 +1,16 @@
 $(document).ready(function () {
-    var cellHeight = $('#colleges').width() * 0.430;
+    var color = d3.scale.ordinal()
+        .range(["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00",
+            "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707",
+            "#651067", "#329262", "#5574a6", "#3b3eac"]);
+
+    var abbreviations = {
+        gender: { 1: 'Female', 2: 'Male', 3: 'N/A' },
+        ethnicity: { 1: 'India/Alaska', 2: 'Asian', 3: 'Black', 4: 'Hisp', 5: 'Hawai', 6: 'White', 7: 'MR', 8: 'N/A', 9: 'NonRes' },
+        college: { 1: 'Agr', 10: 'NRE', 9: 'VetMed', 8: 'Scie', 5: 'Eng', 7: 'LibAr', 2: 'Arch', 3: 'Bus', 6: 'IntCo' },
+        acad: { 6: 'EnFresh', 7: 'EnTran', 8: 'PuUndg', 9: 'EnDVM', 10: 'PuDVM', 11: 'EnMS', 12: 'PuMS', 13: 'EnDoc', 14: 'PuDoc' }
+    };
+
     var defaultMappings = {
         gender: {
             1: 'Female',
@@ -49,6 +60,9 @@ $(document).ready(function () {
         }
     };
 
+    var barTypes = [], barCharts = {}, selections = {};
+    var $selection;
+
     /*
      { label: 'Colorado', 'gender': { 'Male': 122, 'Female': 241, 'N/A': 3 }, 'filters': { } }
      { id: 'someId', 'label': 'Colorado 2016', 'gender': { 'Male': 122, 'Female': 241, 'N/A': 3 } }
@@ -56,12 +70,32 @@ $(document).ready(function () {
      [ { type: 'Male', selections: [ { id: 'someId', label: 'Colorado 2016', value: 21321 } ] } ]
      */
 
-    function removeSelection(data) {
+    function setupEnvironment() {
+        barTypes = Object.keys(defaultMappings);
+        for (var i = 0; i < barTypes.length; i++)
+            barCharts[barTypes[i]] = new BarChart(barTypes[i]);
 
+        $selection = $('#selection');
+        $selection.on('click', '.toggle-alert', function (e) {
+            e.preventDefault();
+            var $parent = $(this).closest('div');
+            removeSelection($parent.attr('id'));
+            $parent.slideUp(300, function () {
+                $(this).remove();
+            });
+        })
     }
 
-    function updateBarCharts(data) {
+    function extractClassName(elem) {
+        var name = elem.className.split(/\s+/).filter(function (c) { return c.startsWith('box'); });
+        return name.length > 0 ? name[0] : '';
+    }
+
+    function updateCaptureAndCompare(data) {
         var uuid = generateUUID(data.label, data.filters);
+        if (uuid in selections)
+            return;
+        addSelection(uuid, data);
         for (var i = 0; i < barTypes.length; i++) {
             var type = barTypes[i];
             if (data.hasOwnProperty(type)) {
@@ -88,6 +122,42 @@ $(document).ready(function () {
             }
         }
         return uuid + "]";
+    }
+
+    function addSelection(uuid, data) {
+        var html = '<div style="display: none; background-color: ' + color(uuid) + ';" class="alert" id="' + uuid + '">' +
+            '<div class="selection-title">' + data.label + ' ' + data.filters.year + '</div>' +
+            '<div class="selection-gender">' + (data.filters.gender ?
+                'Gender: ' + data.filters.gender.map(function (val) { return abbreviations.gender[val]; }).toString() : '') + '</div>' +
+            '<div class="selection-ethnicity">' + (data.filters.ethnicity ?
+                'Ethnicity: ' + data.filters.ethnicity.map(function (val) { return abbreviations.ethnicity[val]; }).toString() : '') + '</div>' +
+            '<div class="selection-college">' + (data.filters.college ?
+                'Colleges: ' + data.filters.college.map(function (val) { return abbreviations.college[val]; }).toString() : '') + '</div>' +
+            '<div class="selection-academic">' + (data.filters.acad ?
+                'Ac Lev: ' + data.filters.acad
+                    .filter(function (val) { return val in abbreviations.acad  })
+                    .map(function (val) { return abbreviations.acad[val]; }).toString() : '') + '</div>' +
+            '<p><a class="toggle-alert" href="#">Toggle</a></p>' +
+            '</div>';
+
+        selections[uuid] = data;
+        $(html).appendTo($selection).slideDown(300);
+    }
+
+    function removeSelection(uuid) {
+        var data = selections[uuid];
+        for (var i = 0; i < barTypes.length; i++) {
+            var type = barTypes[i];
+            if (data.hasOwnProperty(type)) {
+                var obj = {id: uuid, label: data.label};
+                obj[type] = {};
+                Object.keys(data[type]).forEach(function (key) {
+                    obj[type][defaultMappings[type][key]] = data[type][key];
+                });
+                barCharts[type].removeDatum(obj);
+            }
+        }
+        delete selections[uuid];
     }
 
     var BarChart = (function () {
@@ -130,6 +200,7 @@ $(document).ready(function () {
                         this.orderedSelection[i].selections.splice(index, 1);
                     this.selectedIds.splice(index, 1);
                 }
+                this._update();
             },
 
             /*
@@ -194,7 +265,7 @@ $(document).ready(function () {
                         return self.height - self.y(d.value);
                     })
                     .style("fill", function (d) {
-                        return self.color(d.id);
+                        return color(d.id);
                     });
             },
 
@@ -213,11 +284,6 @@ $(document).ready(function () {
                 this.x1 = d3.scale.ordinal();
 
                 this.y = d3.scale.linear().range([this.height, 0]);
-
-                this.color = d3.scale.ordinal()
-                    .range(["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00",
-                        "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707",
-                        "#651067", "#329262", "#5574a6", "#3b3eac"]);
 
                 this.xAxis = d3.svg.axis()
                     .scale(this.x0)
@@ -255,18 +321,18 @@ $(document).ready(function () {
         return BarChart;
     })();
 
-    var barCharts = {};
-    var barTypes = Object.keys(defaultMappings);
-    for (var i = 0; i < barTypes.length; i++)
-        barCharts[barTypes[i]] = new BarChart(barTypes[i]);
+    setupEnvironment();
 
-    updateBarCharts(testData);
+    updateCaptureAndCompare(testData);
     setTimeout(function () {
-        updateBarCharts(testData2);
+        updateCaptureAndCompare(testData2);
         setTimeout(function () {
-            updateBarCharts(testData3);
+            updateCaptureAndCompare(testData3);
             setTimeout(function () {
-                updateBarCharts(testData4);
+                updateCaptureAndCompare(testData4);
+                setTimeout(function () {
+                    updateCaptureAndCompare(testData2);
+                }, 10000);
             }, 2000);
         }, 2000);
     }, 2000);
