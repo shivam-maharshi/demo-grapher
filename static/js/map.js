@@ -47,7 +47,28 @@ $(document).ready(function () {
 
     $('#submit').on('click', updateMaps);
 
-    updateMaps();
+    updateMaps(function (data) {
+        if (contexts[data.context] != selected)
+            return;
+        var geographies = {};
+        maps[selected].svg.selectAll('.datamaps-subunit').data().forEach(function (val) {
+            geographies[val.id] = val;
+        });
+        for (var key in data.values) {
+            if (data.values.hasOwnProperty(key)) {
+                if (data.values[key].count == data.max) {
+                    var selection = {
+                        label: geographies[key].properties.name,
+                        gender: data.values[key].gender,
+                        ethnicity: data.values[key].race,
+                        college: data.values[key].college
+                    };
+                    selection.filters = $.extend({}, lastSubmittedRequest);
+                    updateCaptureAndCompare(selection);
+                }
+            }
+        }
+    });
     maps[selected].resize();
     containers[selected].hide().css("visibility", "visible").fadeIn();
 
@@ -154,7 +175,7 @@ $(document).ready(function () {
         });
     }
 
-    function updateMaps() {
+    function updateMaps(callback) {
         lastSubmittedRequest = $.extend({}, request);
         for (var context in contexts) {
             request.context = context;
@@ -176,6 +197,8 @@ $(document).ready(function () {
                     };
                 });
                 maps[current].updateChoropleth(properties, { reset: true });
+                if (callback && $.isFunction(callback))
+                    callback(data);
             });
         }
     }
