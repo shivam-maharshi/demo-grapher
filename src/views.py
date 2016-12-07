@@ -82,6 +82,7 @@ def prepare_data_query(req):
         i = 1
         while i < len(req.college):
             s += ' OR "College_code"::int8=' + str(req.college[i])
+            i += 1
         s += ')'
     
     if len(req.gender) is not 3:
@@ -89,14 +90,15 @@ def prepare_data_query(req):
         i = 1
         while i < len(req.gender):
             s += ' OR "Gender_code"=' + str(req.gender[i])
+            i += 1
         s += ')'
         
     if len(req.race) is not 9:
         s += ' AND ("Ethnicity_code"=' + str(req.race[0])
         i = 1
-        i = 1
         while i < len(req.race):
             s += ' OR "Ethnicity_code"=' + str(req.race[i])
+            i += 1
         s += ')'
         
     if len(req.acad) is not 14:
