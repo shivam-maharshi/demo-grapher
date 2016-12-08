@@ -115,6 +115,9 @@ $(document).ready(function () {
                 highlightClickHandler: updateSelection
             },
             fills: {
+                min: '#FF0000',
+                middle: '#FFFF00',
+                max: '#008000',
                 defaultFill: '#DCDCDC'
             },
             scope: 'virginia',
@@ -146,6 +149,9 @@ $(document).ready(function () {
                 highlightClickHandler: updateSelection
             },
             fills: {
+                min: '#FF0000',
+                middle: '#FFFF00',
+                max: '#008000',
                 defaultFill: '#DCDCDC'
             },
             scope: 'usa',
@@ -168,6 +174,9 @@ $(document).ready(function () {
                 highlightClickHandler: updateSelection
             },
             fills: {
+                min: '#FF0000',
+                middle: '#FFFF00',
+                max: '#008000',
                 defaultFill: '#DCDCDC'
             },
             responsive: true,
@@ -181,12 +190,15 @@ $(document).ready(function () {
             request.context = context;
             containers[contexts[context]].css('pointerEvents', 'none');
             submitRequest(function (data) {
-                var properties, colorScale;
+                var properties, colors, colorScale;
                 var current = contexts[data.context];
                 if (!('context' in data) || Object.keys(data).length == 0)
                     return;
 
-                colorScale = d3.scale.log().domain([data.min, data.median, data.max]).range(["red", "yellow", "green"]);
+                colors = maps[current].options.fills;
+                colorScale = d3.scale.log()
+                    .domain([data.min, data.median, data.max])
+                    .range([colors.min, colors.middle, colors.max]);
                 properties = {};
                 Object.keys(data.values).map(function (key) {
                     properties[key] = {
@@ -196,6 +208,13 @@ $(document).ready(function () {
                         'ethnicity': data.values[key].race,
                         'college': data.values[key].college
                     };
+                });
+                maps[current].legend({
+                    labels: {
+                        max: 'Max',
+                        middle: 'Median',
+                        min: 'Min'
+                    }
                 });
                 maps[current].updateChoropleth(properties, { reset: true });
                 containers[current].css('pointerEvents', '');
