@@ -4,7 +4,7 @@ DemoGrapher helps in efficiently visualizing students data segregated by demogra
 #### Technology Stack
 * Python, Flask, Postgres DB, JavaScript, JQuery, D3, HTML5, Bootstrap.
 
-# Usage
+## Usage
 
 ### Download
 * `git clone https://github.com/shivam-maharshi/DemoGrapher`<br>
