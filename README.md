@@ -1,16 +1,16 @@
-# DemoGrapher
+# [DemoGrapher](https://github.com/shivam-maharshi/demo-grapher)
 DemoGrapher helps in efficiently visualizing students data segregated by demographics. The information can be refined by numerous powerful filters based on criteria like Student Gender, Ethnicity, Academic Year, Academic Level, College, Department, Major, etc.
 
 #### Technology Stack
 * Python, Flask, Postgres DB, JavaScript, JQuery, D3, HTML5, Bootstrap.
 
-# Overview
+## [Overview](https://github.com/shivam-maharshi/demo-grapher)
 A few sample screenshots of DemoGrapher are given below.
 
 ### HomeScreen
 ![HomeScreen](/DemoGrapher.PNG?raw=true "Home Screen")
 
-## Usage
+## [Usage](https://github.com/shivam-maharshi/demo-grapher)
 
 ### Download
 * `git clone https://github.com/shivam-maharshi/DemoGrapher`<br>
