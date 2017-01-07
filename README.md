@@ -8,7 +8,7 @@ DemoGrapher helps in efficiently visualizing students data segregated by demogra
 A few sample screenshots of DemoGrapher are given below.
 
 ### HomeScreen
-![HomeScreen](/DemoGrapher.PNG?raw=true "Home Screen")
+![HomeScreen](/images/DemoGrapher.png?raw=true "Home Screen")
 
 ## [Usage](https://github.com/shivam-maharshi/demo-grapher)
 
