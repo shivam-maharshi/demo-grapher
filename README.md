@@ -8,14 +8,14 @@ DemoGrapher helps in efficiently visualizing students data segregated by demogra
 
 The following technologies have been used in this project.
 
-1. _** Bootstrap: **_ Serves as a frontend framework for reusable components and consistency accross functionalities.
-2. _** D3: **_ Serves to generate dynamic graphics like interactive visualizations on geographical map.
-3. _** Flask: **_ Serves as the light weight web server to host this application.
-4. _** HTML5: **_ Used for latest feature support like consisten screen sizing and better performance.
-5. _** JavaScript: **_ Serves as the basic frontend data dynamic manipulation language.
-6. _** JQuery: **_ Serves as the main library supporting all the fundamental reusable functionalities across the frontend.
-7. _** Postgres DB: **_ Serves as the primary storage to hold all the students academic, enrollment and geographical data.
-8. _** Python3: **_ Serves as the primary implementation language for the backend which exposes HTTP RESTFul JSON APIs for student's data.
+1. _**Bootstrap:**_ Serves as a frontend framework for reusable components and consistency accross functionalities.
+2. _**D3:**_ Serves to generate dynamic graphics like interactive visualizations on geographical map.
+3. _**Flask:**_ Serves as the light weight web server to host this application.
+4. _**HTML5:**_ Used for latest feature support like consisten screen sizing and better performance.
+5. _**JavaScript:**_ Serves as the basic frontend data dynamic manipulation language.
+6. _**JQuery:**_ Serves as the main library supporting all the fundamental reusable functionalities across the frontend.
+7. _**Postgres DB:**_ Serves as the primary storage to hold all the students academic, enrollment and geographical data.
+8. _**Python3:**_ Serves as the primary implementation language for the backend which exposes HTTP RESTFul JSON APIs for student's data.
 
 ## [2. Usage] (https://github.com/shivam-maharshi/demo-grapher)
 
