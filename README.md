@@ -8,14 +8,14 @@ DemoGrapher helps in efficiently visualizing students data segregated by demogra
 
 The following technologies have been used in this project.
 
-_**1. Bootstrap:**_ Serves as a frontend framework for reusable components and consistency accross functionalities.
-_**2. D3:**_ Serves to generate dynamic graphics like interactive visualizations on geographical map.
-3. _**3. Flask:**_ Serves as the light weight web server to host this application.
-4. _**4. HTML5:**_ Used for latest feature support like consisten screen sizing and better performance.
-5. _**5. JavaScript:**_ Serves as the basic frontend data dynamic manipulation language.
-6. _**6. JQuery:**_ Serves as the main library supporting all the fundamental reusable functionalities across the frontend.
-7. _**7. Postgres DB:**_ Serves as the primary storage to hold all the students academic, enrollment and geographical data.
-8. _**8. Python3:**_ Serves as the primary implementation language for the backend which exposes HTTP RESTFul JSON APIs for student's data.
+1. _** Bootstrap:**_ Serves as a frontend framework for reusable components and consistency accross functionalities.
+2. _** D3:**_ Serves to generate dynamic graphics like interactive visualizations on geographical map.
+3. _** Flask:**_ Serves as the light weight web server to host this application.
+4. _** HTML5:**_ Used for latest feature support like consisten screen sizing and better performance.
+5. _** JavaScript:**_ Serves as the basic frontend data dynamic manipulation language.
+6. _** JQuery:**_ Serves as the main library supporting all the fundamental reusable functionalities across the frontend.
+7. _** Postgres DB:**_ Serves as the primary storage to hold all the students academic, enrollment and geographical data.
+8. _** Python3:**_ Serves as the primary implementation language for the backend which exposes HTTP RESTFul JSON APIs for student's data.
 
 ## [2. Usage] (https://github.com/shivam-maharshi/demo-grapher)
 
@@ -60,8 +60,8 @@ A few sample screenshots of DemoGrapher are given below.
 ### [3.5 Department Filter] (https://github.com/shivam-maharshi/demo-grapher)
 ![Department Filter](/images/DepartmentFilter.png?raw=true "Department Filter")
 
-### [3.6 Compare & Capture Panel] (https://github.com/shivam-maharshi/demo-grapher)
-![ACompare & Capture Panel](/images/Compare&Capture.png?raw=true "Compare & Capture Panel")
+### [3.6 Capture & Compare Panel] (https://github.com/shivam-maharshi/demo-grapher)
+![Capture & Compare Panel](/images/Capture&Compare.png?raw=true "Capture & Compare Panel")
 
 ### [3.7 Compare & Capture Tags] (https://github.com/shivam-maharshi/demo-grapher)
 ![Compare & Capture Tags](/images/CCTags.png?raw=true "Compare & Capture Tags")
@@ -70,7 +70,7 @@ A few sample screenshots of DemoGrapher are given below.
 ![Department Distribution](/images/DepartmentDistribution.png?raw=true "Department Distribution")
 
 ### [3.9 Ethinicty Distribution] (https://github.com/shivam-maharshi/demo-grapher)
-![Ethinicty Distribution](/images/EthinictyDistribution.png?raw=true "Ethinicty Distribution")
+![Ethinicty Distribution](/images/EthinicityDistribution.png?raw=true "Ethinicty Distribution")
 
 ### [3.10 Gender Distribution] (https://github.com/shivam-maharshi/demo-grapher)
 ![Gender Distribution](/images/GenderDistribution.png?raw=true "Gender Distribution")
